@@ -3,239 +3,256 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 
-DROP TABLE IF EXISTS   countries ;
-
-CREATE TABLE IF NOT EXISTS   countries   (
-    countryname   VARCHAR(45) NULL,
-    countrycurrency   VARCHAR(45) NULL,
-    loccountrycode   VARCHAR(45) NULL,
-    countrytype   VARCHAR(45) NULL,
-    countryubtype   VARCHAR(45) NULL,
-    countryformalname   VARCHAR(45) NULL,
-    countrysovereignty   VARCHAR(45) NULL,
-  PRIMARY KEY (  loccountrycode  ))
-ENGINE =   MyISAM;
 
 
-DROP TABLE IF EXISTS   sumaries ;
+DROP TABLE IF EXISTS countries ;
 
-CREATE TABLE IF NOT EXISTS   sumaries   (
-    steamid   VARCHAR(45) NOT NULL,
-    avatar   VARCHAR(45) NULL,
-    communityvisibilitystate   INT NULL,
-    avatarmedium   VARCHAR(45) NULL,
-    personaname   VARCHAR(45) NULL,
-    personastate   INT NULL,
-    profilestate   INT NULL,
-    lastlogoff   VARCHAR(45) NULL,
-    avatarfull   VARCHAR(45) NULL,
-    commentpermission   VARCHAR(45) NULL,
-    personastateflags   INT NULL,
-    profileurl   VARCHAR(45) NULL,
-    loccountrycode   VARCHAR(45) NOT NULL,
-  PRIMARY KEY (  steamid  ),
-  CONSTRAINT   loccountrycode  
-    FOREIGN KEY (  loccountrycode  )
-    REFERENCES   countries (  loccountrycode  )
+CREATE TABLE IF NOT EXISTS countries (
+  countryname VARCHAR(45) NOT NULL,
+  countrycurrency VARCHAR(45) NOT NULL,
+  loccountrycode VARCHAR(45) NOT NULL,
+  countrytype VARCHAR(45) NOT NULL,
+  countryubtype VARCHAR(45) NOT NULL,
+  countryformalname VARCHAR(45) NOT NULL,
+  countrysovereignty VARCHAR(45) NOT NULL,
+  PRIMARY KEY (loccountrycode))
+ENGINE = MyISAM;
+
+
+DROP TABLE IF EXISTS sumaries ;
+
+CREATE TABLE IF NOT EXISTS sumaries (
+  steamid VARCHAR(45) NOT NULL,
+  avatar VARCHAR(45) NOT NULL,
+  communityvisibilitystate INT NOT NULL,
+  avatarmedium VARCHAR(45) NOT NULL,
+  personaname VARCHAR(45) NOT NULL,
+  personastate INT NOT NULL,
+  profilestate INT NOT NULL,
+  lastlogoff VARCHAR(45) NOT NULL,
+  avatarfull VARCHAR(45) NOT NULL,
+  commentpermission VARCHAR(45) NOT NULL,
+  personastateflags INT NOT NULL,
+  profileurl VARCHAR(45) NOT NULL,
+  loccountrycode VARCHAR(45) NOT NULL,
+  PRIMARY KEY (steamid),
+  CONSTRAINT loccountrycode
+    FOREIGN KEY (loccountrycode)
+    REFERENCES countries (loccountrycode)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE =   MyISAM;
+ENGINE = MyISAM;
 
 
-DROP TABLE IF EXISTS   details   ;
+DROP TABLE IF EXISTS details ;
 
-CREATE TABLE IF NOT EXISTS   details   (
-    steam_appid   INT NOT NULL,
-    about_the_game   VARCHAR(45) NULL,
-    background   VARCHAR(45) NULL,
-    coming_soon   TINYINT(1) NULL,
-    detailed_description   VARCHAR(45) NULL,
-    dlc_from   INT NULL,
-    detailscol   VARCHAR(45) NULL,
-    is_free   TINYINT(1) NULL,
-    linux_requirements   VARCHAR(45) NULL,
-    linux_support   TINYINT(1) NULL,
-    mac_requirements   VARCHAR(45) NULL,
-    mac_support   TINYINT(1) NULL,
-    pc_requirements   VARCHAR(45) NULL,
-    price   INT NULL,
-    release_date   VARCHAR(45) NULL,
-    required_age   INT NULL,
-    support_email   VARCHAR(45) NULL,
-    support_url   VARCHAR(45) NULL,
-    supported_languages   VARCHAR(45) NULL,
-    type   VARCHAR(45) NULL,
-    website   VARCHAR(45) NULL,
-    windows_support   TINYINT(1) NULL,
-  PRIMARY KEY (  steam_appid  ))
-ENGINE =   MyISAM;
+CREATE TABLE IF NOT EXISTS details (
+  appid INT NOT NULL,
+  about_the_game VARCHAR(45) NOT NULL,
+  background VARCHAR(45) NOT NULL,
+  coming_soon TINYINT(1) NOT NULL,
+  detailed_description VARCHAR(45) NOT NULL,
+  dlc_from INT NOT NULL,
+  detailscol VARCHAR(45) NOT NULL,
+  is_free TINYINT(1) NOT NULL,
+  linux_requirements VARCHAR(45) NOT NULL,
+  linux_support TINYINT(1) NOT NULL,
+  mac_requirements VARCHAR(45) NOT NULL,
+  mac_support TINYINT(1) NOT NULL,
+  pc_requirements VARCHAR(45) NOT NULL,
+  price INT NOT NULL,
+  release_date VARCHAR(45) NOT NULL,
+  required_age INT NOT NULL,
+  support_email VARCHAR(45) NOT NULL,
+  support_url VARCHAR(45) NOT NULL,
+  supported_languages VARCHAR(45) NOT NULL,
+  type VARCHAR(45) NOT NULL,
+  website VARCHAR(45) NOT NULL,
+  windows_support TINYINT(1) NOT NULL,
+  PRIMARY KEY (appid))
+ENGINE = MyISAM;
 
-DROP TABLE IF EXISTS   achievements   ;
 
-CREATE TABLE IF NOT EXISTS   achievements   (
-    appid   INT NOT NULL,
-    achi_name   VARCHAR(45) NOT NULL,
-    default_achi_value   INT NULL,
-    display_achi_name   VARCHAR(45) NULL,
-    hidden   TINYINT(1) NULL,
-    icon   VARCHAR(45) NULL,
-    icongray   VARCHAR(45) NULL,
-  PRIMARY KEY (  appid  ,   achi_name  ),
-  CONSTRAINT   appid  
-    FOREIGN KEY (  appid  )
-    REFERENCES   details   (  steam_appid  )
+
+DROP TABLE IF EXISTS achievements ;
+
+CREATE TABLE IF NOT EXISTS achievements (
+  appid INT NOT NULL,
+  achi_name VARCHAR(45) NOT NULL,
+  defaultvalue INT NOT NULL,
+  displayname VARCHAR(45) NOT NULL,
+  hidden TINYINT(1) NOT NULL,
+  icon VARCHAR(45) NOT NULL,
+  icongray VARCHAR(45) NOT NULL,
+  PRIMARY KEY (appid, achi_name),
+  CONSTRAINT appid
+    FOREIGN KEY (appid)
+    REFERENCES details (appid)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE =   MyISAM;
+ENGINE = MyISAM;
 
 
-DROP TABLE IF EXISTS   playerstats   ;
+DROP TABLE IF EXISTS stats ;
 
-CREATE TABLE IF NOT EXISTS   playerstats   (
-    steamid   VARCHAR(45) NOT NULL,
-    appid   INT NOT NULL,
-    player_stats_name   VARCHAR(45) NULL,
-    value   INT NULL,
-  PRIMARY KEY (  steamid  ,   appid  ),
-  CONSTRAINT   steamid  
-    FOREIGN KEY (  steamid  )
-    REFERENCES   sumaries   (  steamid  )
+CREATE TABLE IF NOT EXISTS stats (
+  appid INT NOT NULL,
+  stats_name VARCHAR(45) NOT NULL,
+  defaultvalue INT NOT NULL,
+  displayname VARCHAR(45) NOT NULL,
+  PRIMARY KEY (appid, stats_name),
+  CONSTRAINT appid
+    FOREIGN KEY (appid)
+    REFERENCES details (appid)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = MyISAM;
+
+
+DROP TABLE IF EXISTS playerstats ;
+
+CREATE TABLE IF NOT EXISTS playerstats (
+  steamid VARCHAR(45) NOT NULL,
+  appid INT NOT NULL,
+  stats_name VARCHAR(45) NOT NULL,
+  value INT NOT NULL,
+  PRIMARY KEY (steamid, appid, stats_name),
+  CONSTRAINT steamid
+    FOREIGN KEY (steamid)
+    REFERENCES sumaries (steamid)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT   appid  
-    FOREIGN KEY (  appid  )
-    REFERENCES   details   (  steam_appid  )
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE =   MyISAM;
-
-DROP TABLE IF EXISTS   playerachievements   ;
-
-CREATE TABLE IF NOT EXISTS   playerachievements   (
-    steamid   VARCHAR(45) NOT NULL,
-    appid   INT NOT NULL,
-    apiname   VARCHAR(45) NULL,
-    achieved   TINYINT(1) NULL,
-  PRIMARY KEY (  steamid  ,   appid  ),
-  CONSTRAINT   steamid  
-    FOREIGN KEY (  steamid  )
-    REFERENCES   sumaries   (  steamid  )
+  CONSTRAINT appid
+    FOREIGN KEY (appid)
+    REFERENCES details (appid)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT   appid  
-    FOREIGN KEY (  appid  )
-    REFERENCES   details   (  steam_appid  )
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE =   MyISAM;
-
-
-DROP TABLE IF EXISTS   stats   ;
-
-CREATE TABLE IF NOT EXISTS   stats   (
-    appid   INT NOT NULL,
-    stats_name   VARCHAR(45) NOT NULL,
-    default_stats_value   INT NULL,
-    display_stats_name   VARCHAR(45) NULL,
-  PRIMARY KEY (  appid  ,   stats_name  ),
-  CONSTRAINT   appid  
-    FOREIGN KEY (  appid  )
-    REFERENCES   details   (  steam_appid  )
+  CONSTRAINT stats_name
+    FOREIGN KEY (stats_name)
+    REFERENCES stats (stats_name)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE =   MyISAM;
+ENGINE = MyISAM;
 
 
-DROP TABLE IF EXISTS   owned   ;
 
-CREATE TABLE IF NOT EXISTS   owned   (
-    steamid   VARCHAR(45) NOT NULL,
-    appid   INT NOT NULL,
-    playtime_forever   INT NULL,
-    playtime_2weeks   INT NULL,
-  PRIMARY KEY (  steamid  ,   appid  ),
-  CONSTRAINT   steamid  
-    FOREIGN KEY (  steamid  )
-    REFERENCES   sumaries   (  steamid  )
+DROP TABLE IF EXISTS playerachievements ;
+
+CREATE TABLE IF NOT EXISTS playerachievements (
+  steamid VARCHAR(45) NOT NULL,
+  appid INT NOT NULL,
+  achi_name VARCHAR(45) NOT NULL,
+  achieved TINYINT(1) NOT NULL,
+  PRIMARY KEY (steamid, appid, achi_name),
+  CONSTRAINT steamid
+    FOREIGN KEY (steamid)
+    REFERENCES sumaries (steamid)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT   appid  
-    FOREIGN KEY (  appid  )
-    REFERENCES   details   (  steam_appid  )
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE =   MyISAM;
-
-
-DROP TABLE IF EXISTS   friends   ;
-
-CREATE TABLE IF NOT EXISTS   friends   (
-    relationship   VARCHAR(45) NULL,
-    friend_since   INT NULL,
-    steamid1   VARCHAR(45) NOT NULL,
-    steamid2   VARCHAR(45) NOT NULL,
-  PRIMARY KEY (  steamid1  ,   steamid2  ),
-  CONSTRAINT   steamid1  
-    FOREIGN KEY (  steamid1  )
-    REFERENCES   sumaries   (  steamid  )
+  CONSTRAINT appid
+    FOREIGN KEY (appid)
+    REFERENCES details (appid)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT   steamid2  
-    FOREIGN KEY (  steamid2  )
-    REFERENCES   sumaries   (  steamid  )
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE =   MyISAM;
-
-
-DROP TABLE IF EXISTS   news   ;
-
-CREATE TABLE IF NOT EXISTS   news   (
-    appid   INT NOT NULL,
-    gid   VARCHAR(45) NOT NULL,
-    title   VARCHAR(45) NULL,
-    url   VARCHAR(45) NULL,
-    is_external_url   TINYINT(1) NULL,
-    author   VARCHAR(45) NULL,
-    contents   VARCHAR(45) NULL,
-    feedlabel   VARCHAR(45) NULL,
-    date   INT NULL,
-    feedname   VARCHAR(45) NULL,
-  PRIMARY KEY (  appid  ,   gid  ),
-  CONSTRAINT   appid  
-    FOREIGN KEY (  appid  )
-    REFERENCES   details   (  steam_appid  )
+  CONSTRAINT achi_name
+    FOREIGN KEY (achi_name)
+    REFERENCES achievements (achi_name)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE =   MyISAM;
-
-DROP TABLE IF EXISTS   developers   ;
-
-CREATE TABLE IF NOT EXISTS   developers   (
-    appid   INT NOT NULL,
-    dev_name   VARCHAR(45) NOT NULL,
-  PRIMARY KEY (  appid  ,   dev_name  ),
-  CONSTRAINT   appid  
-    FOREIGN KEY (  appid  )
-    REFERENCES   details   (  steam_appid  )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE =   MyISAM;
+ENGINE = MyISAM;
 
 
+DROP TABLE IF EXISTS owned ;
 
-DROP TABLE IF EXISTS   publishers   ;
-
-CREATE TABLE IF NOT EXISTS   publishers   (
-    pub_name   VARCHAR(45) NOT NULL,
-    appid   INT NOT NULL,
-  PRIMARY KEY (  pub_name  ,   appid  ),
-  CONSTRAINT   appid  
-    FOREIGN KEY (  appid  )
-    REFERENCES   details   (  steam_appid  )
+CREATE TABLE IF NOT EXISTS owned (
+  steamid VARCHAR(45) NOT NULL,
+  appid INT NOT NULL,
+  playtime_forever INT NOT NULL,
+  playtime_2weeks INT NOT NULL,
+  PRIMARY KEY (steamid, appid),
+  CONSTRAINT steamid
+    FOREIGN KEY (steamid)
+    REFERENCES sumaries (steamid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT appid
+    FOREIGN KEY (appid)
+    REFERENCES details (appid)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
-ENGINE =   MyISAM;
+ENGINE = MyISAM;
+
+
+
+DROP TABLE IF EXISTS friends ;
+
+CREATE TABLE IF NOT EXISTS friends (
+  relationship VARCHAR(45) NOT NULL,
+  friend_since INT NOT NULL,
+  steamid1 VARCHAR(45) NOT NULL,
+  steamid2 VARCHAR(45) NOT NULL,
+  PRIMARY KEY (steamid1, steamid2),
+  CONSTRAINT steamid1
+    FOREIGN KEY (steamid1)
+    REFERENCES sumaries (steamid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT steamid2
+    FOREIGN KEY (steamid2)
+    REFERENCES sumaries (steamid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = MyISAM;
+
+
+DROP TABLE IF EXISTS news ;
+
+CREATE TABLE IF NOT EXISTS news (
+  appid INT NOT NULL,
+  gid VARCHAR(45) NOT NULL,
+  title VARCHAR(45) NOT NULL,
+  url VARCHAR(45) NOT NULL,
+  is_external_url TINYINT(1) NOT NULL,
+  author VARCHAR(45) NOT NULL,
+  contents VARCHAR(45) NOT NULL,
+  feedlabel VARCHAR(45) NOT NULL,
+  date INT NOT NULL,
+  feedname VARCHAR(45) NOT NULL,
+  PRIMARY KEY (appid, gid),
+  CONSTRAINT appid
+    FOREIGN KEY (appid)
+    REFERENCES details (appid)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = MyISAM;
+
+
+DROP TABLE IF EXISTS developers ;
+
+CREATE TABLE IF NOT EXISTS developers (
+  appid INT NOT NULL,
+  name VARCHAR(45) NOT NULL,
+  PRIMARY KEY (appid, name),
+  CONSTRAINT appid
+    FOREIGN KEY (appid)
+    REFERENCES details (appid)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = MyISAM;
+
+
+DROP TABLE IF EXISTS publishers ;
+
+CREATE TABLE IF NOT EXISTS publishers (
+  pub_name VARCHAR(45) NOT NULL,
+  appid INT NOT NULL,
+  PRIMARY KEY (pub_name, appid),
+  CONSTRAINT appid
+    FOREIGN KEY (appid)
+    REFERENCES details (appid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = MyISAM;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
