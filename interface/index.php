@@ -34,6 +34,8 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="index.php">Home</a></li>
+            <li class="active"><a href="er.html">Esquema ER</a></li>
+            <li class="active"><a href="relacional.html">Esquema Relacional</a></li>
             <li class="active"><a href="grupo.html">Grupo</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -43,17 +45,39 @@
     <div class="container">
       	<div class="starter-template">
 		    <form action="query.php" method="post">
-			<h3>Digite sua query:</h3> <textarea name="stmt" rows="10" cols="70"> </textarea><br><br>
+			<h3>Digite sua query:</h3> <textarea id="text" name="stmt" rows="10" cols="70"> </textarea><br><br>
 			<input type="submit">
 			</form>
       	</div>
     </div><!-- /.container -->
 
 
+    <div class="form-group">
+      <select class="form-control" id="dropdownlist">
+        <option value=""> SELECIONE SUA PESQUISA</option>
+        <option value="SELECT movie_name FROM movie M, role R, role_type T, person P WHERE M.movie_id = R.movie_id AND R.person_id = P.person_id AND R.role_type_id = T.role_type_id AND person_name = &quotSpielberg, Steven&quot AND type_name = &quotdirector&quot ;">
+                        Selecionar todos os filmes nos quais Steven Spielberg foi diretor</option>
+        <option value="SELECT  person_id as id, person_name as name, movie_name as movie FROM movie NATURAL JOIN role NATURAL JOIN person WHERE person_name=&quotMcKellen, Ian&quot ;">
+                        Selecionar o id, nome e nome do filme que Ian Mckellen participou</option>
+        <option value="text3">text3</option>rnatively, you can delimit the attribute value with single quotes:
+        <option value="text4">text4</option>
+      </select>
+    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript">
+      var mytextbox = document.getElementById('text');
+      var mydropdown = document.getElementById('dropdownlist');
+
+      mydropdown.onchange = function(){
+           //mytextbox.value = mytextbox.value  + this.value; //to appened
+           mytextbox.innerHTML = this.value;
+      }
+    </script>
+
   </body>
 </html>

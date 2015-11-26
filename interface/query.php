@@ -21,7 +21,7 @@
   </head>
   <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+ <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -35,6 +35,8 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="index.php">Home</a></li>
+            <li class="active"><a href="er.html">Esquema ER</a></li>
+            <li class="active"><a href="relacional.html">Esquema Relacional</a></li>
             <li class="active"><a href="grupo.html">Grupo</a></li>
           </ul>
         </div><!--/.nav-collapse -->
