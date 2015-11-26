@@ -1,11 +1,13 @@
 <?php
 
-$steamwid = 184;
-$steamhei = 184;
+$steamwid = 500;
+$steamhei = 500;
+
+$med = ($steamwid + $steamhei) >> 1;
 
 putenv('GDFONTPATH=' . realpath('.'));
 $fontname = 'Chewy.ttf';
-$fontsize = 14.0;
+$fontsize = $med / 12;
 
 if (isset($_GET['s']) && isset($_GET['sid'])) {
 
@@ -15,6 +17,7 @@ if (isset($_GET['s']) && isset($_GET['sid'])) {
 	switch ($_GET['s']) {
 		case 'small': $realwid = 32; $realhei = 32; break;
 		case 'medium': $realwid = 64; $realhei = 64; break;
+		default: $realwid = 184; $realhei = 184; break;
 	}
 
 	$steamid = intval($_GET['sid']);
@@ -32,7 +35,7 @@ if (isset($_GET['s']) && isset($_GET['sid'])) {
 	imageantialias($img, true);
 	imagefilledrectangle($img, 0, 0, $steamwid - 1, $steamhei - 1, $bg);
 
-	$balls = mt_rand(15, 20);
+	$balls = mt_rand(150, 200);
 
 	for ($i = 0; $i < $balls; $i++) {
 
@@ -41,8 +44,6 @@ if (isset($_GET['s']) && isset($_GET['sid'])) {
 		$blue = mt_rand(0, 255);
 		$alpha = mt_rand(50, 127);
 		$color = imagecolorallocatealpha($img, $red, $green, $blue, $alpha);
-
-		$med = ($steamwid + $steamhei) >> 1;
 
 		$radius = mt_rand($med >> 3, $med >> 1);
 		$x = mt_rand(0, $steamwid);
