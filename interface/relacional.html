@@ -10,7 +10,6 @@
     <!-- CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/s/bs/dt-1.10.10,fh-3.1.0/datatables.min.css"/>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -43,23 +42,65 @@
       </div>
     </nav>
 
-
-    <div class="container">
-      <h2>Integrantes</h2>
-      
-      <p>Hugo Rocha Pimenta - 2012054883</p>
-      <p>Miller Ferreira    - MATRICULA</p>
-      <p>Marco Antônio      - MATRICULA</p>
-      <p>Vinicius Morais    - MATRICULA</p>
-
-    </div><!-- /.container -->
+<div>
+<pre id="relac">
+countries (  <u>loccountrycode</u> ,countryname,  countrycurrency ,  countrytype, countryubtype , countryformalname , countrysovereignty )
 
 
+sumaries (  <u>steamid</u> ,  avatar,  communityvisibilitystate,  avatarmedium,  personaname,  personastate,  profilestate,  lastlogoff,  avatarfull,  commentpermission,  personastateflags,  profileurl,  loccountrycode)
+  loccountrycode REFERENCES countries (loccountrycode)
+ 
 
+details (  <u>appid</u>,  about_the_game,  background,  coming_soon,  detailed_description,  dlc_from,  detailscol,  is_free,  linux_requirements,  linux_support ,  mac_requirements,  mac_support,  pc_requirements,  price,  release_date,  required_age,  support_email ,  support_url,  supported_languages,  type,  website,  windows_support)
+
+
+achievements (  <u>appid</u> ,  <u>achi_name</u> ,  defaultvalue ,  displayname ,  hidden ,  icon ,  icongray )
+  appid     REFERENCES details (appid)
+
+
+stats (  <u>appid</u>,  <u>stats_name</u>,  defaultvalue,  displayname)
+
+appid  REFERENCES details (appid)
+
+
+playerstats ( <u>steamid</u> ,  <u>appid</u> ,  <u>stats_name</u>,  value ,
+  steamid        REFERENCES sumaries (steamid)
+  appid          REFERENCES details (appid)
+  stats_name     REFERENCES stats (stats_name)
+
+
+playerachievements (  <u>steamid</u> ,  <u>appid</u>, <u>achi_name</u> ,  achieved)
+  steamid   REFERENCES sumaries (steamid)
+  appid     REFERENCES details (appid)
+  achi_name REFERENCES achievements (achi_name)
+
+
+owned (  <u>steamid</u> ,  <u>appid</u> ,  playtime_forever ,  playtime_2weeks)
+  steamid   REFERENCES sumaries (steamid)
+  appid     REFERENCES details (appid)
+
+
+friends (  relationship ,  friend_since ,  <u>steamid1</u> ,  <u>steamid2</u> )
+  steamid1    REFERENCES sumaries (steamid)
+  steamid2    REFERENCES sumaries (steamid)
+
+
+news (  <u>appid</u> ,  <u>gid</u>,  title ,  url ,  is_external_url ,  author ,  contents ,  feedlabel ,  date ,  feedname)
+  appid     REFERENCES details (appid)
+
+
+developers (  <u>appid</u>,  <u>name</u>)
+  appid     REFERENCES details (appid)
+
+
+publishers (<u>pub_name</u> ,  <u>appid</u>)
+  appid     REFERENCES details (appid)
+</pre>
+</div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/s/bs/dt-1.10.10,fh-3.1.0/datatables.min.js"></script>
+    
   </body>
 </html>

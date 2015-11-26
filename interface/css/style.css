@@ -16,3 +16,26 @@ body {
 	color: #E25D33;
 	font-weight: bold;
 }
+
+#dropdownlist{
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+}
+#lista{
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+li {display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+#relac{
+	width:60%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top: 20px;
+}
