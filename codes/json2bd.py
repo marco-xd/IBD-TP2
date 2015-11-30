@@ -11,10 +11,10 @@ def getDirFilesNames(path):
 def connectBd(ip, door, userName, password, dbName):
 	#Necessario passar a porta caso nao seja a padrao...
 	if door==NULL:
-		db = MySQLdb.connect(ip, userName, password, dbName)
+		db = MySQLdb.connect(ip, userName, password, dbName, charset='utf8')
 		return db
 	else:
-		db = MySQLdb.connect(host=ip, port=door, user=userName, passwd=password, db=dbName)
+		db = MySQLdb.connect(host=ip, port=door, user=userName, passwd=password, db=dbName, charset='utf8')
 		return db
 
 #[:len(name)-5]
