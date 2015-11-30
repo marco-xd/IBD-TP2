@@ -21,7 +21,7 @@ def connectBd(ip, door, userName, password, dbName):
 
 #[:len(name)-5]
 def insertFriends(db):
-	jzimFriends = getDirFilesNames('data/friends')
+	jzimFriends = getDirFilesNames('../data/friends')
 	cursor = db.cursor()
 	
 	for jName in jzimFriends:
@@ -48,7 +48,7 @@ def insertFriends(db):
 				#break
 				
 def insertOwned(db):
-	jzimOwned = getDirFilesNames('data/owned')
+	jzimOwned = getDirFilesNames('../data/owned')
 	cursor = db.cursor()
 	
 	for jName in jzimOwned:
@@ -75,7 +75,7 @@ def insertOwned(db):
 				#break
 
 def insertPlayerAchievements(db):
-	jzimAchievements = getDirFilesNames('data/achievements')
+	jzimAchievements = getDirFilesNames('../data/achievements')
 	cursor = db.cursor()
 	
 	for jName in jzimAchievements:
@@ -104,7 +104,7 @@ def insertPlayerAchievements(db):
 					#break
 			
 def insertPlayerStats(db):
-	jzimStats = getDirFilesNames('data/stats')
+	jzimStats = getDirFilesNames('../data/stats')
 	cursor = db.cursor()
 	
 	for jName in jzimStats:
@@ -135,7 +135,7 @@ def insertPlayerStats(db):
 
 
 def insertSummaries(db):
-	jzimSummaries = getDirFilesNames('data/summaries')
+	jzimSummaries = getDirFilesNames('../data/summaries')
 	cursor = db.cursor()
 	
 	for jName in jzimSummaries:
@@ -172,7 +172,7 @@ def insertSummaries(db):
 			#break
 
 def insertAchievements(db):
-	jzimAchievements = getDirFilesNames('data/schema')
+	jzimAchievements = getDirFilesNames('../data/schema')
 	cursor = db.cursor()
 	
 	for jName in jzimAchievements:
