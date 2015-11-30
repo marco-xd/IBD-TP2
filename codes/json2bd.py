@@ -34,7 +34,7 @@ def insertSummaries (db):
 			aux = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
-		# print(myId)
+		print "\r" + myId, 
 		cursor.execute("INSERT INTO summaries (steamid, avatar, communityvisibilitystate, avatarmedium, personaname, personastate, profilestate, lastlogoff, avatarfull, personastateflags, profileurl, loccountrycode, commentpermission)" +
 		"VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
 			(
@@ -76,7 +76,7 @@ def insertDetails (db):
 			game = json.load(fo)
 			fo.close()
 		appid = f[:-5]
-		# print(appid)
+		print "\r" + appid, 
 		cursor.execute('INSERT INTO `details` (`appid`, `about_the_game`, `background`, `coming_soon`, `detailed_description`, `dlc_from`,' +
 			' `header_image`, `is_free`, `linux_requirements`, `linux_support`, `mac_requirements`, `mac_support`, `pc_requirements`, `price`,' +
 			' `release_date`, `required_age`, `support_email`, `support_url`, `supported_languages`, `type`, `website`, `windows_support`)' +
@@ -94,7 +94,7 @@ def insertAchievementsAndStats (db):
 			jzim = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
-		# print(myId)
+		print "\r" + myId, 
 		for acv in jzim['achievements']:
 			cursor.execute("INSERT INTO achievements(appid, achi_name, defaultvalue, displayname, hidden, icon, icongray) VALUES (%s, %s, %s, %s, %s, %s, %s)",
 				(myId, acv['name'], acv['defaultvalue'], acv['displayName'], acv['hidden'], acv['icon'], acv['icongray']))
@@ -111,7 +111,7 @@ def insertPlayerAchievements (db):
 			jzim = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
-		# print(myId)
+		print "\r" + myId, 
 		for gId, info in jzim.iteritems():
 			for aux in info:
 				cursor.execute("INSERT INTO playerachievements(steamid, appid, achi_name, achieved) VALUES (%s, %s, %s, 1)",
@@ -141,7 +141,7 @@ def insertOwned (db):
 			jzim = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
-		# print(myId)
+		print "\r" + myId, 
 		for gId, info in jzim.iteritems():
 			cursor.execute("INSERT INTO owned(steamid, appid, playtime_forever, playtime_2weeks) VALUES (%s, %s, %s, %s)",
 				(myId, gId, info['playtime_forever'], info['playtime_2weeks']))
@@ -154,7 +154,7 @@ def insertNews (db):
 			news = json.load(fo)
 			fo.close()
 		appid = f[:-5]
-		# print(appid)
+		print "\r" + appid, 
 		for info in news['newsitems']:
 			cursor.execute('INSERT INTO `news` (`appid`, `gid`, `title`, `url`, `is_external_url`, `author`,' +
 				' `contents`, `feedlabel`, `date`, `feedname`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
