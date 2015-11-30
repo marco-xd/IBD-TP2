@@ -55,12 +55,46 @@
     <div class="form-group">
       <select class="form-control" id="dropdownlist">
         <option value=""> SELECIONE SUA PESQUISA</option>
-        <option value="SELECT movie_name FROM movie M, role R, role_type T, person P WHERE M.movie_id = R.movie_id AND R.person_id = P.person_id AND R.role_type_id = T.role_type_id AND person_name = &quotSpielberg, Steven&quot AND type_name = &quotdirector&quot ;">
-                        Selecionar todos os filmes nos quais Steven Spielberg foi diretor</option>
-        <option value="SELECT  person_id as id, person_name as name, movie_name as movie FROM movie NATURAL JOIN role NATURAL JOIN person WHERE person_name=&quotMcKellen, Ian&quot ;">
-                        Selecionar o id, nome e nome do filme que Ian Mckellen participou</option>
-        <option value="text3">text3</option>rnatively, you can delimit the attribute value with single quotes:
-        <option value="text4">text4</option>
+
+        <option value="select countryformalname , sum(price) from countries natural join summaries natural join owned natural join details where is_free = 0 group by countryformalname order by sum(price);">
+                      Mostrar o nome do país seguido de o total gasto por jogos não gratis</option>
+                      </option>
+
+        <option value="select appid from details where linux_support = 1 and appid not in (select distinct appid from details natural join news);">
+                      Mostrar os appid dos jogos que possuem suporte para linux e não possuem alguma notícia</option>
+        
+        <option value="select appid from details where linux_support = 1 and mac_support = 1 and windows_support = 1 order by appid;">
+                      Mostrar o appid dos jogos que possuem suporte para todas as plataformas</option>
+        
+        <option value="select steamid , personaname  , max(playtime_forever)  , appid from summaries natural join owned natural join details group by steamid;">
+                      Mostrar o id da pessoa e o nome e o id do jogo que ela mais jogou</option>
+        
+        <option value="select appid , count(steamid) , sum(playtime_forever) from summaries natural join owned natural join details group by appid ;">
+                      Mostrar o id e o total de players e o total de tempo jogado de cada jogo</option>
+        
+        <option value="select c1.countryformalname , aux.id , aux.nome , max(aux.total) from (select s.steamid as id, s.personaname as nome , s.loccountrycode as loccountrycode, count(pa.achieved) as total from summaries s natural join playerachievements pa group by s.steamid) aux natural join countries c1 group by c1.countryformalname order by max(total);">
+                      Mostrar o nome do país e o nome da pessoa que mais possui achievements</option>
+        
+        <option value="select appid , dev_name from developers natural join details natural join publishers where pub_name = dev_name order by appid;">
+                      Selecionar os jogos que possuem desenvolvedores e publicadores iguais</option>
+        
+        <option value="select steamid1 , steamid2  , a.appid from friends , owned a, owned b where a.steamid = steamid1 and b.steamid = steamid2 and a.appid = b.appid order by steamid1;">
+                      Para cada pessoa selecionar todos os amigos que possuem jogos em comum e mostrar o id do jogo</option>
+        
+        <option value="select steamid ,  personaname , CASE WHEN sum(price)>100 THEN &quotverdadeiro&quot ELSE &quotfalso&quot END from summaries natural join owned natural join details where is_free = false group by steamid ;">
+                      Mostrar verdadeiro se uma pessoa gastou mais que 100$ em jogos e falso caso contrario</option>
+        
+        <option value="select steamid , personaname , appid from summaries natural join owned natural join details where playtime_2weeks > 0 and supported_languages like '%Portuguese%';">
+                      Mostrar o nome da pessoa que jogou um jogo nas últimas 2 semanas que possui suporte para língua portuguesa</option>
+        
+        <option value="select c.countryformalname ,  count(distinct d.appid) /  aux.total  from countries c natural join summaries s natural join owned o natural join details d natural join (select c1.loccountrycode , count(distinct s1.steamid) as total from countries c1 natural join summaries s1 group by c1.loccountrycode) aux where d.is_free = false group by c.countryformalname;">
+                      Mostrar a porcentagem de jogadores que pagaram por algum jogo para cada país</option>
+        
+        <option value="select c.countryformalname , avg(aux.totalpessoa) from countries c natural join (select s.loccountrycode  , sum(d.price) as totalpessoa from summaries s natural join owned o natural join  details d where d.price > 0) aux group by c.countryformalname order by c.countryformalname;">
+                      Mostrar a média de dinherio gasto por pessoa por cada país</option>
+        
+        <option value="select personaname , appid from summaries natural join owned natural join details where playtime_forever = 0 and price > 0 ;">
+                      Selecionar o nome das pessoas e o jogo em que alguem comprou e nao jogou ainda</option>
       </select>
     </div>
 

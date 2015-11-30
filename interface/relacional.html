@@ -58,13 +58,13 @@ achievements (  <u>appid</u> ,  <u>achi_name</u> ,  defaultvalue ,  displayname 
   appid     REFERENCES details (appid)
 
 
-stats (  <u>appid</u>,  <u>stats_name</u>,  defaultvalue,  displayname)
+stats (  <u>appid</u>,  <u>stats_name</u>,  stats_defaultvalue,  stats_displayname)
 
 appid  REFERENCES details (appid)
 
 
 playerstats ( <u>steamid</u> ,  <u>appid</u> ,  <u>stats_name</u>,  value ,
-  steamid        REFERENCES sumaries (steamid)
+  steamid        REFERENCES summaries (steamid)
   appid          REFERENCES details (appid)
   stats_name     REFERENCES stats (stats_name)
 
