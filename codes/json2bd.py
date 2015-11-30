@@ -8,8 +8,8 @@ def normalizePath (path):
 
 def getDirFilesNames (path):
 	files = []
-	for name in glob.glob(normalizePath(path)):
-		files.append(os.path.basename(name) + '/*.json')
+	for name in glob.glob(normalizePath(path) + '/*.json'):
+		files.append(os.path.basename(name))
 	return files
 
 #[:len(name)-5]
