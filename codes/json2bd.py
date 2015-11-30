@@ -60,6 +60,7 @@ def insertFriends (db):
 		with open(normalizePath('../data/friends/' + jName), 'r') as fR:
 			jzim = json.load(fR)
 			fR.close()
+		id1 = jName[:-5]
 		for fnd, info in jzim.iteritems():
 			if id1 > info['steamid']:
 				cursor.execute("INSERT INTO friends(relationship, friend_since, steamid1, steamid2) VALUES ('friend', %s, %s, %s)",

@@ -1,5 +1,5 @@
 DROP DATABASE IF EXISTS steam;
-CREATE DATABASE steam DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+CREATE DATABASE steam DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8_general_ci;
 
 connect steam;
 
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS summaries (
   avatar VARCHAR(255) NOT NULL,
   communityvisibilitystate TINYINT(1) NOT NULL,
   avatarmedium VARCHAR(255) NOT NULL,
-  personaname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  personaname VARCHAR(255) NOT NULL,
   personastate TINYINT(1) NOT NULL,
   profilestate TINYINT(1) NOT NULL,
   lastlogoff INT NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS achievements (
   appid INT NOT NULL,
   achi_name VARCHAR(255) NOT NULL,
   defaultvalue INT NOT NULL,
-  displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  displayname VARCHAR(255) NOT NULL,
   hidden TINYINT(1) NOT NULL,
   icon VARCHAR(255) NOT NULL,
   icongray VARCHAR(255) NOT NULL,
