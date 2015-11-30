@@ -5,7 +5,7 @@ def getDirFilesNames(path):
 	abspath = os.path.dirname(os.path.abspath(sys.argv[0]))
 	files = []
 	for name in glob.glob(os.path.abspath(abspath + '/' + path) + '/*.json'):
-		files.append(name)
+		files.append(os.path.basename(name))
 	return files
 
 def connectBd(ip, door, userName, password, dbName):
