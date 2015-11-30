@@ -120,7 +120,7 @@ def insertPlayerAchievements (db):
 def insertPlayerStats (db):
 	jzimStats = getDirFilesNames('../data/stats')
 	cursor = db.cursor()
-	
+	jzimStats = ['76561197979140902.json']
 	for jName in jzimStats:
 		with codecs.open(normalizePath('../data/stats/' + jName), 'r', 'utf-8') as fR:
 			jzim = json.load(fR)
@@ -131,6 +131,7 @@ def insertPlayerStats (db):
 				print "\r" + myId + ' ' + aux['name'] + ' ' + aux['value'],
 				cursor.execute("INSERT INTO playerstats(steamid, appid, stat_name, value) VALUES (%s, %s, %s, %s)",
 					(myId, gId, aux['name'], aux['value']))
+	exit(0)
 				
 def insertOwned (db):
 	jzimOwned = getDirFilesNames('../data/owned')
