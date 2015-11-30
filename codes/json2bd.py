@@ -6,7 +6,7 @@ re_pattern = re.compile(u'[^\u0000-\uD7FF\uE000-\uFFFF]', re.UNICODE)
 def remove4bytesUTF8 (txt):
 	result = re_pattern.sub(u'\uFFFD', txt)
 	if result != txt:
-		print((result, txt))
+		print((result, txt, result.decode('utf8'), txt.decode('utf8')))
 	return result
 
 def normalizePath (path):
@@ -102,7 +102,7 @@ def insertAchievementsAndStats (db):
 			jzim = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
-		print(myId)
+		# print(myId)
 		for acv in jzim['achievements']:
 			cursor.execute("INSERT INTO achievements(appid, achi_name, defaultvalue, displayname, hidden, icon, icongray) VALUES (%s, %s, %s, %s, %s, %s, %s)",
 				(myId, acv['name'], acv['defaultvalue'], acv['displayName'], acv['hidden'], acv['icon'], acv['icongray']))
