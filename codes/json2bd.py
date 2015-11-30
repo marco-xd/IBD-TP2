@@ -4,10 +4,7 @@ from _mysql import NULL
 re_pattern = re.compile(u'[^\u0000-\uD7FF\uE000-\uFFFF]', re.UNICODE)
 
 def remove4bytesUTF8 (txt):
-	result = re_pattern.sub(u'\uFFFD', txt)
-	if result != txt:
-		print((result, txt, result.encode('utf8'), txt.encode('utf8')))
-	return result
+	return txt#re_pattern.sub(u'\uFFFD', txt)
 
 def normalizePath (path):
 	abspath = os.path.dirname(os.path.abspath(sys.argv[0]))
@@ -196,7 +193,13 @@ user = 'root'
 pw = 'ibdsteamUFMG'
 dbName = 'steam'
 
-db = MySQLdb.connect(host, user, pw, dbName, charset='utf8')
+db = MySQLdb.connect(host, user, pw, dbName, charset='utf8', use_unicode=True)
+
+cursor = db.cursor()
+
+cursor.execute('SET NAMES utf8mb4')
+cursor.execute("SET CHARACTER SET utf8mb4")
+cursor.execute("SET character_set_connection=utf8mb4")
 
 try:
 	print('Inserting countries...')
