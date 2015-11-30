@@ -34,6 +34,7 @@ def insertSummaries (db):
 			aux = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
+		print(myId)
 		cursor.execute("INSERT INTO summaries (steamid, avatar, communityvisibilitystate, avatarmedium, personaname, personastate, profilestate, lastlogoff, avatarfull, personastateflags, profileurl, loccountrycode, commentpermission)" +
 		"VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
 			(
@@ -94,7 +95,7 @@ def insertAchievementsAndStats (db):
 			cursor.execute("INSERT INTO achievements(appid, achi_name, defaultvalue, displayname, hidden, icon, icongray) VALUES (%s, %s, %s, %s, %s, %s, %s)",
 				(myId, acv['name'], acv['defaultvalue'], acv['displayName'], acv['hidden'], acv['icon'], acv['icongray']))
 		for stat in jzim['stats']:
-			cursor.execute("INSERT INTO stats(appid, stats_name, defaultvalue, displayname) VALUES (%s, %s, %s, %s)",
+			cursor.execute("INSERT INTO stats(appid, stat_name, defaultvalue, displayname) VALUES (%s, %s, %s, %s)",
 				(myId, stat['name'], stat['defaultvalue'], stat['displayName']))
 
 def insertPlayerAchievements (db):
@@ -122,7 +123,7 @@ def insertPlayerStats (db):
 		myId = jName[:-5]
 		for gId, info in jzim.iteritems():
 			for aux in info:
-				cursor.execute("INSERT INTO playerstats(steamid, appid, stats_name, value) VALUES (%s, %s, %s, %s)",
+				cursor.execute("INSERT INTO playerstats(steamid, appid, stat_name, value) VALUES (%s, %s, %s, %s)",
 					(myId, gId, aux['name'], aux['value']))
 				
 def insertOwned (db):
