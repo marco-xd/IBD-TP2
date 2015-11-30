@@ -36,7 +36,7 @@ def insertFriends(db):
 			friends_since = aux['friend_since']
 			#print 'id2: %s - friends since: %d' % (id2, friends_since)
 			sql = "INSERT INTO friends(relationship, friend_since, steamid1, steamid2)\
-			VALUES ('Friends', %s, %s, %s)" % (db.escape_string(str(friends_since)), db.escape_string(str(id1)), db.escape_string(str(id2)))
+			VALUES ('Friends', %s, %s, %s)" % (db.escape_string(str(friends_since.encode('utf8'))), db.escape_string(str(id1.encode('utf8'))), db.escape_string(str(id2.encode('utf8'))))
 			try:
 				cursor.execute(sql)
 				db.commit()
@@ -63,7 +63,7 @@ def insertOwned(db):
 			playtime_2weeks = aux['playtime_2weeks']
 			#print 'playtime_2weeks: %s - playtime_forever: %d' % (playtime_2weeks, playtime_forever)
 			sql = "INSERT INTO owned(steamid, appid, playtime_forever, playtime_2weeks)\
-			VALUES ('%s', %d, %s, %s)" % (db.escape_string(str(myId)), int(gId), db.escape_string(str(playtime_forever)), db.escape_string(str(playtime_2weeks)))
+			VALUES ('%s', %d, %s, %s)" % (db.escape_string(str(myId.encode('utf8'))), int(gId), db.escape_string(str(playtime_forever.encode('utf8'))), db.escape_string(str(playtime_2weeks.encode('utf8'))))
 			try:
 				cursor.execute(sql)
 				db.commit()
@@ -92,7 +92,7 @@ def insertPlayerAchievements(db):
 				name = aux['name']
 				#print 'playtime_2weeks: %s - playtime_forever: %d' % (playtime_2weeks, playtime_forever)
 				sql = "INSERT INTO playerachievements(steamid, appid, achi_name, achieved)\
-				VALUES ('%s', %d, '%s', 1)" % (db.escape_string(str(myId)), int(gId), db.escape_string(str(name)))
+				VALUES ('%s', %d, '%s', 1)" % (db.escape_string(str(myId.encode('utf8'))), int(gId), db.escape_string(str(name.encode('utf8'))))
 				try:
 					cursor.execute(sql)
 					db.commit()
@@ -122,7 +122,7 @@ def insertPlayerStats(db):
 				value = aux['value']
 				#print 'playtime_2weeks: %s - playtime_forever: %d' % (playtime_2weeks, playtime_forever)
 				sql = "INSERT INTO playerstats(steamid, appid, stats_name, value)\
-				VALUES ('%s', %d, '%s', %s)" % (db.escape_string(str(myId)), int(gId), db.escape_string(str(name)), db.escape_string(str(value)))
+				VALUES ('%s', %d, '%s', %s)" % (db.escape_string(str(myId.encode('utf8'))), int(gId), db.escape_string(str(name.encode('utf8'))), db.escape_string(str(value.encode('utf8'))))
 				try:
 					cursor.execute(sql)
 					db.commit()
@@ -157,10 +157,10 @@ def insertSummaries(db):
 		sql = "INSERT INTO summaries(steamid, avatar, communityvisibilitystate, avatarmedium, personaname,\
 		personastate, profilestate, lastlogoff, avatarfull, commentpermission, personastateflags,\
 		profileurl, loccountrycode) VALUES ('%s', '%s', %s, '%s', '%s', '%s', '%s', '%s', '%s', '0', %s, '%s',\
-		 '%s')" % (db.escape_string(str(myId)), db.escape_string(str(avatar)), db.escape_string(str(communityvisibilitystate)),
-				db.escape_string(str(avatarmedium)), db.escape_string(str(personaname)), db.escape_string(str(personastate)), 
-				db.escape_string(str(profilestate)), db.escape_string(str(lastlogoff)), db.escape_string(str(avatarfull)),
-				db.escape_string(str(personastateflags)), db.escape_string(str(profileurl)), db.escape_string(str(loccountrycode)))
+		 '%s')" % (db.escape_string(str(myId.encode('utf8'))), db.escape_string(str(avatar.encode('utf8'))), db.escape_string(str(communityvisibilitystate.encode('utf8'))),
+				db.escape_string(str(avatarmedium.encode('utf8'))), db.escape_string(str(personaname.encode('utf8'))), db.escape_string(str(personastate.encode('utf8'))), 
+				db.escape_string(str(profilestate.encode('utf8'))), db.escape_string(str(lastlogoff.encode('utf8'))), db.escape_string(str(avatarfull.encode('utf8'))),
+				db.escape_string(str(personastateflags.encode('utf8'))), db.escape_string(str(profileurl.encode('utf8'))), db.escape_string(str(loccountrycode.encode('utf8'))))
 		try:
 			cursor.execute(sql)
 			db.commit()
@@ -189,8 +189,8 @@ def insertAchievements(db):
 			icongray = acv['icongray']
 			
 			sql = "INSERT INTO achievements(appid, achi_name, defaultvalue, displayname, hidden, icon, icongray) \
-			VALUES (%d, '%s', %s, '%s', %s, '%s', '%s')" % (int(myId), db.escape_string(str(achi_name)), db.escape_string(str(defaultvalue)),
-				db.escape_string(str(displayname)), db.escape_string(str(hidden)), db.escape_string(str(icon)), db.escape_string(str(icongray)))
+			VALUES (%d, '%s', %s, '%s', %s, '%s', '%s')" % (int(myId), db.escape_string(str(achi_name.encode('utf8'))), db.escape_string(str(defaultvalue.encode('utf8'))),
+				db.escape_string(str(displayname.encode('utf8'))), db.escape_string(str(hidden.encode('utf8'))), db.escape_string(str(icon.encode('utf8'))), db.escape_string(str(icongray.encode('utf8'))))
 			
 			try:
 				cursor.execute(sql)
