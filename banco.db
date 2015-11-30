@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS playerstats (
   FOREIGN KEY (appid, stat_name)
     REFERENCES stats (appid, stat_name)
     ON DELETE CASCADE
-    ON UPDATE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = MyISAM;
 
 
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS playerachievements (
   FOREIGN KEY (appid, achi_name)
     REFERENCES achievements (appid, achi_name)
     ON DELETE CASCADE
-    ON UPDATE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = MyISAM;
 
 
