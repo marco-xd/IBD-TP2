@@ -188,7 +188,6 @@ def main():
 		db.commit()
 	except MySQLdb.Error, e:
 		db.rollback()
-		print("Query: %s" % (sql))
 		try:
 			print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
 		except IndexError:
