@@ -110,7 +110,7 @@ DROP TABLE IF EXISTS stats ;
 CREATE TABLE IF NOT EXISTS stats (
   appid INT NOT NULL,
   stat_name VARCHAR(255) NOT NULL,
-  defaultvalue INT NOT NULL,
+  defaultvalue BIGINT NOT NULL,
   displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 
   PRIMARY KEY (appid, stat_name),

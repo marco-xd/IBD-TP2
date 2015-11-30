@@ -4,7 +4,10 @@ from _mysql import NULL
 re_pattern = re.compile(u'[^\u0000-\uD7FF\uE000-\uFFFF]', re.UNICODE)
 
 def remove4bytesUTF8 (txt):
-	return re_pattern.sub(u'\uFFFD', txt)  
+	result = re_pattern.sub(u'\uFFFD', txt)
+	if result != txt:
+		print((result, txt))
+	return result
 
 def normalizePath (path):
 	abspath = os.path.dirname(os.path.abspath(sys.argv[0]))
@@ -99,7 +102,7 @@ def insertAchievementsAndStats (db):
 			jzim = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
-		# print(myId)
+		print(myId)
 		for acv in jzim['achievements']:
 			cursor.execute("INSERT INTO achievements(appid, achi_name, defaultvalue, displayname, hidden, icon, icongray) VALUES (%s, %s, %s, %s, %s, %s, %s)",
 				(myId, acv['name'], acv['defaultvalue'], acv['displayName'], acv['hidden'], acv['icon'], acv['icongray']))
