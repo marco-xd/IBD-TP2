@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS summaries (
   lastlogoff INT NOT NULL,
   avatarfull VARCHAR(255) NOT NULL,
   commentpermission TINYINT(1) NOT NULL,
-  personastateflags TINYINT(1) NOT NULL,
+  personastateflags INT NOT NULL,
   profileurl VARCHAR(255) NOT NULL,
   loccountrycode CHAR(2) NOT NULL,
 
