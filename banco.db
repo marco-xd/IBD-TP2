@@ -127,21 +127,21 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- ENGINE = MyISAM;
 
 
--- DROP TABLE IF EXISTS stats ;
+DROP TABLE IF EXISTS stats ;
 
--- CREATE TABLE IF NOT EXISTS stats (
---   appid INT NOT NULL,
---   stat_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
---   defaultvalue DOUBLE NOT NULL,
---   displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+CREATE TABLE IF NOT EXISTS stats (
+  appid INT NOT NULL,
+  stat_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  defaultvalue DOUBLE NOT NULL,
+  displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 
---   PRIMARY KEY (appid, stat_name),
+  PRIMARY KEY (appid, stat_name),
 
---   FOREIGN KEY (appid)
---     REFERENCES details (appid)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE)
--- ENGINE = MyISAM;
+  FOREIGN KEY (appid)
+    REFERENCES details (appid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = MyISAM;
 
 
 -- DROP TABLE IF EXISTS playerstats ;
@@ -166,26 +166,26 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- ENGINE = MyISAM;
 
 
--- DROP TABLE IF EXISTS owned ;
+DROP TABLE IF EXISTS owned ;
 
--- CREATE TABLE IF NOT EXISTS owned (
---   steamid CHAR(17) NOT NULL,
---   appid INT NOT NULL,
---   playtime_forever INT NOT NULL,
---   playtime_2weeks INT NOT NULL,
+CREATE TABLE IF NOT EXISTS owned (
+  steamid CHAR(17) NOT NULL,
+  appid INT NOT NULL,
+  playtime_forever INT NOT NULL,
+  playtime_2weeks INT NOT NULL,
 
---   PRIMARY KEY (steamid, appid),
+  PRIMARY KEY (steamid, appid),
 
---   FOREIGN KEY (steamid)
---     REFERENCES summaries (steamid)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE,
+  FOREIGN KEY (steamid)
+    REFERENCES summaries (steamid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
 
---   FOREIGN KEY (appid)
---     REFERENCES details (appid)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE)
--- ENGINE = MyISAM;
+  FOREIGN KEY (appid)
+    REFERENCES details (appid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = MyISAM;
 
 
 -- DROP TABLE IF EXISTS friends ;
@@ -209,27 +209,27 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- ENGINE = MyISAM;
 
 
-DROP TABLE IF EXISTS news ;
+-- DROP TABLE IF EXISTS news ;
 
-CREATE TABLE IF NOT EXISTS news (
-  appid INT NOT NULL,
-  gid VARCHAR(20) NOT NULL,
-  title VARCHAR(1023) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  url VARCHAR(255) NOT NULL,
-  is_external_url TINYINT(1) NOT NULL,
-  author VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  contents LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  feedlabel VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  date INT NOT NULL,
-  feedname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+-- CREATE TABLE IF NOT EXISTS news (
+--   appid INT NOT NULL,
+--   gid VARCHAR(20) NOT NULL,
+--   title VARCHAR(1023) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+--   url VARCHAR(255) NOT NULL,
+--   is_external_url TINYINT(1) NOT NULL,
+--   author VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+--   contents LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+--   feedlabel VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+--   date INT NOT NULL,
+--   feedname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 
-  PRIMARY KEY (appid, gid),
+--   PRIMARY KEY (appid, gid),
 
-  FOREIGN KEY (appid)
-    REFERENCES details (appid)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = MyISAM;
+--   FOREIGN KEY (appid)
+--     REFERENCES details (appid)
+--     ON DELETE CASCADE
+--     ON UPDATE CASCADE)
+-- ENGINE = MyISAM;
 
 
 -- DROP TABLE IF EXISTS developers ;
