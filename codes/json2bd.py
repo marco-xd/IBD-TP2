@@ -188,7 +188,7 @@ user = 'root'
 pw = 'ibdsteamUFMG'
 dbName = 'steam'
 
-db = MySQLdb.connect(host, user, pw, dbName, charset='utf8mb4')
+db = MySQLdb.connect(host, user, pw, dbName, charset='utf8')
 
 try:
 	print('Inserting countries...')
