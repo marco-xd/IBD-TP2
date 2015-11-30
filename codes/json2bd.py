@@ -160,7 +160,7 @@ def insertSummaries(db):
 		personastate, profilestate, lastlogoff, avatarfull, commentpermission, personastateflags,\
 		profileurl, loccountrycode) VALUES ('%s', '%s', %d, '%s', '%s', '%d', '%d', '%d', '%s', '0', %d, '%s',\
 		 '%s')" % (db.escape_string(myId), db.escape_string(avatar), db.escape_string(communityvisibilitystate),
-		 		db.escape_string(avatarmedium), db.escape_string(personaname), db.escape_string(personastate), 
+				db.escape_string(avatarmedium), db.escape_string(personaname), db.escape_string(personastate), 
 				db.escape_string(profilestate), db.escape_string(lastlogoff), db.escape_string(avatarfull),
 				db.escape_string(personastateflags), db.escape_string(profileurl), db.escape_string(loccountrycode))
 		try:
@@ -197,6 +197,12 @@ def insertAchievements(db):
 			try:
 				cursor.execute(sql)
 				db.commit()
+			except MySQLdb.Error, e:
+				db.rollback()
+				try:
+					print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
+				except IndexError:
+					print "MySQL Error: %s" % str(e)
 			except:
 				db.rollback()
 				print 'Deu erro! Sql: %s' % (sql)
