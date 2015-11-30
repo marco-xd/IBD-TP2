@@ -212,8 +212,8 @@ def main():
 	host = 'localhost'
 	port = 2222
 	user = 'root'
-	passw = 'miller999'
-	dbName = 'ibd_tp2'
+	passw = 'ibdsteamUFMG'
+	dbName = 'steam'
 	
 	db = connectBd(host, port, user, passw, dbName)
 	#insertFriends(db)
