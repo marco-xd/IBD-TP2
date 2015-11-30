@@ -114,7 +114,7 @@ def main ():
 	pw = 'ibdsteamUFMG'
 	dbName = 'steam'
 	
-	db = MySQLdb.connect(host, user, pw, dbName, charset='utf8')
+	db = MySQLdb.connect(host, user, pw, dbName)
 	try:
 		#insertFriends(db)
 		#insertOwned(db)
