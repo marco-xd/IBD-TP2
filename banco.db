@@ -89,7 +89,7 @@ DROP TABLE IF EXISTS achievements ;
 
 CREATE TABLE IF NOT EXISTS achievements (
   appid INT NOT NULL,
-  achi_name VARCHAR(255) NOT NULL,
+  achi_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   defaultvalue INT NOT NULL,
   displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   hidden TINYINT(1) NOT NULL,
@@ -109,7 +109,7 @@ DROP TABLE IF EXISTS stats ;
 
 CREATE TABLE IF NOT EXISTS stats (
   appid INT NOT NULL,
-  stat_name VARCHAR(255) NOT NULL,
+  stat_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   defaultvalue BIGINT NOT NULL,
   displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 
@@ -127,7 +127,7 @@ DROP TABLE IF EXISTS playerstats ;
 CREATE TABLE IF NOT EXISTS playerstats (
   steamid VARCHAR(17) NOT NULL,
   appid INT NOT NULL,
-  stat_name VARCHAR(255) NOT NULL,
+  stat_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   value BIGINT NOT NULL,
 
   PRIMARY KEY (steamid, appid, stat_name),
@@ -149,7 +149,7 @@ DROP TABLE IF EXISTS playerachievements ;
 CREATE TABLE IF NOT EXISTS playerachievements (
   steamid CHAR(17) NOT NULL,
   appid INT NOT NULL,
-  achi_name VARCHAR(255) NOT NULL,
+  achi_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   achieved TINYINT(1) NOT NULL,
 
   PRIMARY KEY (steamid, appid, achi_name),
