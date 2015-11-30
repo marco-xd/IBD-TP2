@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS playerstats (
   steamid VARCHAR(17) NOT NULL,
   appid INT NOT NULL,
   stat_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  value BIGINT NOT NULL,
+  value BIGINT(16) NOT NULL,
 
   PRIMARY KEY (steamid, appid, stat_name),
 
