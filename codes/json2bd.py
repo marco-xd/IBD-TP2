@@ -126,7 +126,7 @@ def insertPlayerStats (db):
 			jzim = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
-		print("\r" + myId)
+		print "\r" + myId,
 		for gId, info in jzim.iteritems():
 			for aux in info:
 				cursor.execute("INSERT INTO playerstats(steamid, appid, stat_name, value) VALUES (%s, %s, %s, %s)",
