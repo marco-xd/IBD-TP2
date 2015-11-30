@@ -17,7 +17,7 @@ def insertCountries (db):
 	countries = getDirFilesNames('../data/countries')
 	cursor = db.cursor()
 	for f in countries:
-		with codes.open(normalizePath('../data/countries/' + f), 'r', 'utf-8') as fo:
+		with codec.open(normalizePath('../data/countries/' + f), 'r', 'utf-8') as fo:
 			country = json.load(fo)
 			fo.close()
 		if not country['loccountrycode'] in inserted:
@@ -30,7 +30,7 @@ def insertSummaries (db):
 	cursor = db.cursor()
 	
 	for jName in jzimSummaries:
-		with codes.open(normalizePath('../data/summaries/' + jName), 'r', 'utf-8') as fR:
+		with codec.open(normalizePath('../data/summaries/' + jName), 'r', 'utf-8') as fR:
 			aux = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
@@ -58,7 +58,7 @@ def insertFriends (db):
 	jzimFriends = getDirFilesNames('../data/friends')
 	cursor = db.cursor()
 	for jName in jzimFriends:
-		with codes.open(normalizePath('../data/friends/' + jName), 'r', 'utf-8') as fR:
+		with codec.open(normalizePath('../data/friends/' + jName), 'r', 'utf-8') as fR:
 			jzim = json.load(fR)
 			fR.close()
 		id1 = jName[:-5]
@@ -72,7 +72,7 @@ def insertDetails (db):
 	files = getDirFilesNames('../data/details')
 	cursor = db.cursor()
 	for f in files:
-		with codes.open(normalizePath('../data/details/' + f), 'r', 'utf-8') as fo:
+		with codec.open(normalizePath('../data/details/' + f), 'r', 'utf-8') as fo:
 			game = json.load(fo)
 			fo.close()
 		appid = f[:-5]
@@ -90,7 +90,7 @@ def insertAchievementsAndStats (db):
 	cursor = db.cursor()
 	
 	for jName in jzimAchievements:
-		with codes.open(normalizePath('../data/schema/' + jName), 'r', 'utf-8') as fR:
+		with codec.open(normalizePath('../data/schema/' + jName), 'r', 'utf-8') as fR:
 			jzim = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
@@ -107,7 +107,7 @@ def insertPlayerAchievements (db):
 	cursor = db.cursor()
 	
 	for jName in jzimAchievements:
-		with codes.open(normalizePath('../data/achievements/' + jName), 'r', 'utf-8') as fR:
+		with codec.open(normalizePath('../data/achievements/' + jName), 'r', 'utf-8') as fR:
 			jzim = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
@@ -122,7 +122,7 @@ def insertPlayerStats (db):
 	cursor = db.cursor()
 	
 	for jName in jzimStats:
-		with codes.open(normalizePath('../data/stats/' + jName), 'r', 'utf-8') as fR:
+		with codec.open(normalizePath('../data/stats/' + jName), 'r', 'utf-8') as fR:
 			jzim = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
@@ -137,7 +137,7 @@ def insertOwned (db):
 	cursor = db.cursor()
 	
 	for jName in jzimOwned:
-		with codes.open(normalizePath('../data/owned/' + jName), 'r', 'utf-8') as fR:
+		with codec.open(normalizePath('../data/owned/' + jName), 'r', 'utf-8') as fR:
 			jzim = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
@@ -150,7 +150,7 @@ def insertNews (db):
 	files = getDirFilesNames('../data/news')
 	cursor = db.cursor()
 	for f in files:
-		with codes.open(normalizePath('../data/news/' + f), 'r', 'utf-8') as fo:
+		with codec.open(normalizePath('../data/news/' + f), 'r', 'utf-8') as fo:
 			news = json.load(fo)
 			fo.close()
 		appid = f[:-5]
@@ -165,7 +165,7 @@ def insertDevelopers (db):
 	files = getDirFilesNames('../data/developers')
 	cursor = db.cursor()
 	for f in files:
-		with codes.open(normalizePath('../data/developers/' + f), 'r', 'utf-8') as fo:
+		with codec.open(normalizePath('../data/developers/' + f), 'r', 'utf-8') as fo:
 			dev = json.load(fo)
 			fo.close()
 		for name, games in dev.iteritems():
@@ -176,7 +176,7 @@ def insertPublishers (db):
 	files = getDirFilesNames('../data/publishers')
 	cursor = db.cursor()
 	for f in files:
-		with codes.open(normalizePath('../data/publishers/' + f), 'r', 'utf-8') as fo:
+		with codec.open(normalizePath('../data/publishers/' + f), 'r', 'utf-8') as fo:
 			pub = json.load(fo)
 			fo.close()
 		for name, games in pub.iteritems():
