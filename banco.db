@@ -53,10 +53,10 @@ DROP TABLE IF EXISTS details ;
 
 CREATE TABLE IF NOT EXISTS details (
   appid INT NOT NULL,
-  about_the_game TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  about_the_game TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   background VARCHAR(255) NOT NULL,
   coming_soon TINYINT(1) NOT NULL,
-  detailed_description TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  detailed_description TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   dlc_from INT NOT NULL,
   header_image VARCHAR(255) NOT NULL, /* TODO: alterar details_col para header_image */
   is_free TINYINT(1) NOT NULL,
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS playerstats (
   steamid VARCHAR(17) NOT NULL,
   appid INT NOT NULL,
   stat_name VARCHAR(255) NOT NULL,
-  value INT NOT NULL,
+  value BIGINT NOT NULL,
 
   PRIMARY KEY (steamid, appid, stat_name),
 

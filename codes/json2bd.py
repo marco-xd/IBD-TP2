@@ -1,4 +1,4 @@
-import json, MySQLdb, glob, sys, os
+import json, MySQLdb, glob, sys, os, codecs
 from _mysql import NULL
 
 def normalizePath (path):
@@ -17,7 +17,7 @@ def insertCountries (db):
 	countries = getDirFilesNames('../data/countries')
 	cursor = db.cursor()
 	for f in countries:
-		with open(normalizePath('../data/countries/' + f), 'r') as fo:
+		with codes.open(normalizePath('../data/countries/' + f), 'r', 'utf-8') as fo:
 			country = json.load(fo)
 			fo.close()
 		if not country['loccountrycode'] in inserted:
@@ -30,7 +30,7 @@ def insertSummaries (db):
 	cursor = db.cursor()
 	
 	for jName in jzimSummaries:
-		with open(normalizePath('../data/summaries/' + jName), 'r') as fR:
+		with codes.open(normalizePath('../data/summaries/' + jName), 'r', 'utf-8') as fR:
 			aux = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
@@ -58,10 +58,11 @@ def insertFriends (db):
 	jzimFriends = getDirFilesNames('../data/friends')
 	cursor = db.cursor()
 	for jName in jzimFriends:
-		with open(normalizePath('../data/friends/' + jName), 'r') as fR:
+		with codes.open(normalizePath('../data/friends/' + jName), 'r', 'utf-8') as fR:
 			jzim = json.load(fR)
 			fR.close()
 		id1 = jName[:-5]
+		print(id1)
 		for fnd, info in jzim.iteritems():
 			if id1 > info['steamid']:
 				cursor.execute("INSERT INTO friends(relationship, friend_since, steamid1, steamid2) VALUES ('friend', %s, %s, %s)",
@@ -71,14 +72,16 @@ def insertDetails (db):
 	files = getDirFilesNames('../data/details')
 	cursor = db.cursor()
 	for f in files:
-		with open(normalizePath('../data/details/' + f), 'r') as fo:
+		with codes.open(normalizePath('../data/details/' + f), 'r', 'utf-8') as fo:
 			game = json.load(fo)
 			fo.close()
+		appid = f[:-5]
+		print(appid)
 		cursor.execute('INSERT INTO `details` (`appid`, `about_the_game`, `background`, `coming_soon`, `detailed_description`, `dlc_from`,' +
 			' `header_image`, `is_free`, `linux_requirements`, `linux_support`, `mac_requirements`, `mac_support`, `pc_requirements`, `price`,' +
 			' `release_date`, `required_age`, `support_email`, `support_url`, `supported_languages`, `type`, `website`, `windows_support`)' +
 			' VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-			(f[:-5], game['about_the_game'], game['background'], game['coming_soon'], game['detailed_description'], game['dlc_from'],
+			(appid, game['about_the_game'], game['background'], game['coming_soon'], game['detailed_description'], game['dlc_from'],
 				game['header_image'], game['is_free'], game['linux_requirements'], game['linux_support'], game['mac_requirements'], game['mac_support'], game['pc_requirements'], game['price'],
 				game['release_date'], game['required_age'], game['support_email'], game['support_url'], game['supported_languages'], game['type'], game['website'], game['windows_support']))
 
@@ -87,10 +90,11 @@ def insertAchievementsAndStats (db):
 	cursor = db.cursor()
 	
 	for jName in jzimAchievements:
-		with open(normalizePath('../data/schema/' + jName), 'r') as fR:
+		with codes.open(normalizePath('../data/schema/' + jName), 'r', 'utf-8') as fR:
 			jzim = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
+		print(myId)
 		for acv in jzim['achievements']:
 			cursor.execute("INSERT INTO achievements(appid, achi_name, defaultvalue, displayname, hidden, icon, icongray) VALUES (%s, %s, %s, %s, %s, %s, %s)",
 				(myId, acv['name'], acv['defaultvalue'], acv['displayName'], acv['hidden'], acv['icon'], acv['icongray']))
@@ -103,10 +107,11 @@ def insertPlayerAchievements (db):
 	cursor = db.cursor()
 	
 	for jName in jzimAchievements:
-		with open(normalizePath('../data/achievements/' + jName), 'r') as fR:
+		with codes.open(normalizePath('../data/achievements/' + jName), 'r', 'utf-8') as fR:
 			jzim = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
+		print(myId)
 		for gId, info in jzim.iteritems():
 			for aux in info:
 				cursor.execute("INSERT INTO playerachievements(steamid, appid, achi_name, achieved) VALUES (%s, %s, %s, 1)",
@@ -117,10 +122,11 @@ def insertPlayerStats (db):
 	cursor = db.cursor()
 	
 	for jName in jzimStats:
-		with open(normalizePath('../data/stats/' + jName), 'r') as fR:
+		with codes.open(normalizePath('../data/stats/' + jName), 'r', 'utf-8') as fR:
 			jzim = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
+		print(myId)
 		for gId, info in jzim.iteritems():
 			for aux in info:
 				cursor.execute("INSERT INTO playerstats(steamid, appid, stat_name, value) VALUES (%s, %s, %s, %s)",
@@ -131,10 +137,11 @@ def insertOwned (db):
 	cursor = db.cursor()
 	
 	for jName in jzimOwned:
-		with open(normalizePath('../data/owned/' + jName), 'r') as fR:
+		with codes.open(normalizePath('../data/owned/' + jName), 'r', 'utf-8') as fR:
 			jzim = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
+		print(myId)
 		for gId, info in jzim.iteritems():
 			cursor.execute("INSERT INTO owned(steamid, appid, playtime_forever, playtime_2weeks) VALUES (%s, %s, %s, %s)",
 				(myId, gId, info['playtime_forever'], info['playtime_2weeks']))
@@ -143,10 +150,11 @@ def insertNews (db):
 	files = getDirFilesNames('../data/news')
 	cursor = db.cursor()
 	for f in files:
-		with open(normalizePath('../data/news/' + f), 'r') as fo:
+		with codes.open(normalizePath('../data/news/' + f), 'r', 'utf-8') as fo:
 			news = json.load(fo)
 			fo.close()
 		appid = f[:-5]
+		print(appid)
 		for info in news['newsitems']:
 			cursor.execute('INSERT INTO `news` (`appid`, `gid`, `title`, `url`, `is_external_url`, `author`,' +
 				' `contents`, `feedlabel`, `date`, `feedname`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
@@ -157,7 +165,7 @@ def insertDevelopers (db):
 	files = getDirFilesNames('../data/developers')
 	cursor = db.cursor()
 	for f in files:
-		with open(normalizePath('../data/developers/' + f), 'r') as fo:
+		with codes.open(normalizePath('../data/developers/' + f), 'r', 'utf-8') as fo:
 			dev = json.load(fo)
 			fo.close()
 		for name, games in dev.iteritems():
@@ -168,7 +176,7 @@ def insertPublishers (db):
 	files = getDirFilesNames('../data/publishers')
 	cursor = db.cursor()
 	for f in files:
-		with open(normalizePath('../data/publishers/' + f), 'r') as fo:
+		with codes.open(normalizePath('../data/publishers/' + f), 'r', 'utf-8') as fo:
 			pub = json.load(fo)
 			fo.close()
 		for name, games in pub.iteritems():
@@ -180,7 +188,7 @@ user = 'root'
 pw = 'ibdsteamUFMG'
 dbName = 'steam'
 
-db = MySQLdb.connect(host, user, pw, dbName, charset='utf8')
+db = MySQLdb.connect(host, user, pw, dbName, charset='utf8mb4')
 
 try:
 	print('Inserting countries...')
@@ -212,6 +220,8 @@ except MySQLdb.Error, e:
 		print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
 	except IndexError:
 		print "MySQL Error: %s" % e
+	raise
+except:
 	raise
 
 db.close()
