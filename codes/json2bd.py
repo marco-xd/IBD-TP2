@@ -105,8 +105,9 @@ def insertAchievements (db):
 			fR.close()
 		myId = jName[:-5]
 		for acv in jzim['achievements']:
-			cursor.execute("INSERT INTO achievements(appid, achi_name, defaultvalue, displayname, hidden, icon, icongray) VALUES ('%d', '%s', '%d', '%s', '%d', '%s', '%s')",
-				(int(myId), acv['name'], acv['defaultvalue'], acv['displayName'], acv['hidden'], acv['icon'], acv['icongray']))
+			print(acv)
+			cursor.execute("INSERT INTO achievements(appid, achi_name, defaultvalue, displayname, hidden, icon, icongray) VALUES ('%s', '%s', '%d', '%s', '%d', '%s', '%s')",
+				(myId, acv['name'], int(acv['defaultvalue']), acv['displayName'], int(acv['hidden']), acv['icon'], acv['icongray']))
 	
 def main ():
 	host = 'localhost'
