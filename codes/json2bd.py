@@ -154,7 +154,7 @@ def insertNews (db):
 			fo.close()
 		appid = f[:-5]
 		print "\r" + appid, 
-		for info in news['newsitems']:
+		for info in news['appnews']['newsitems']:
 			cursor.execute('INSERT INTO `news` (`appid`, `gid`, `title`, `url`, `is_external_url`, `author`,' +
 				' `contents`, `feedlabel`, `date`, `feedname`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
 				(appid, info['gid'], info['title'], info['url'], info['is_external_url'], info['author'],
@@ -200,18 +200,18 @@ try:
 	# insertCountries(db)
 	# print('Inserting summaries...')
 	# insertSummaries(db)
-	# print('Inserting friends...')
-	# insertFriends(db)
+	print('Inserting friends...')
+	insertFriends(db)
 	# print('Inserting details...')
 	# insertDetails(db)
-	print('Inserting achievements and stats...')
-	insertAchievementsAndStats(db)
+	# print('Inserting achievements and stats...')
+	# insertAchievementsAndStats(db)
 	# print('Inserting player achievements...')
 	# insertPlayerAchievements(db)
-	print('Inserting player stats...')
-	insertPlayerStats(db)
-	print('Inserting owned...')
-	insertOwned(db)
+	# print('Inserting player stats...')
+	# insertPlayerStats(db)
+	# print('Inserting owned...')
+	# insertOwned(db)
 	print('Inserting news...')
 	insertNews(db)
 	print('Inserting developers...')

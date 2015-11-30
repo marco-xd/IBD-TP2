@@ -89,7 +89,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- CREATE TABLE IF NOT EXISTS achievements (
 --   appid INT NOT NULL,
---   achi_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+--   achi_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, /* ALTER */
 --   defaultvalue INT NOT NULL,
 --   displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 --   hidden TINYINT(1) NOT NULL,
@@ -110,7 +110,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- CREATE TABLE IF NOT EXISTS playerachievements (
 --   steamid CHAR(17) NOT NULL,
 --   appid INT NOT NULL,
---   achi_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+--   achi_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, /* ALTER */
 --   achieved TINYINT(1) NOT NULL,
 
 --   PRIMARY KEY (steamid, appid, achi_name),
@@ -147,7 +147,7 @@ ENGINE = MyISAM;
 DROP TABLE IF EXISTS playerstats ;
 
 CREATE TABLE IF NOT EXISTS playerstats (
-  steamid VARCHAR(17) NOT NULL,
+  steamid CHAR(17) NOT NULL, /* ALTER */
   appid INT NOT NULL,
   stat_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   value DOUBLE NOT NULL,
