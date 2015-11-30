@@ -13,14 +13,17 @@ def getDirFilesNames (path):
 	return files
 
 def insertCountries (db):
+	inserted = {}
 	countries = getDirFilesNames('../data/countries')
 	cursor = db.cursor()
 	for f in countries:
 		with open(normalizePath('../data/countries/' + f), 'r') as fo:
 			country = json.load(fo)
 			fo.close()
-		cursor.execute("INSERT INTO countries(countryname, countrycurrency, loccountrycode, countrytype, countrysubtype, countryformalname, countrysovereignty) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-			(country['countryname'], country['countrycurrency'], country['loccountrycode'], country['countrytype'], country['countrysubtype'], country['countryformalname'], country['countrysovereignty']))
+		if not country['loccountrycode'] in inserted:
+			inserted[country['loccountrycode']] = True
+			cursor.execute("INSERT INTO countries(countryname, countrycurrency, loccountrycode, countrytype, countrysubtype, countryformalname, countrysovereignty) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+				(country['countryname'], country['countrycurrency'], country['loccountrycode'], country['countrytype'], country['countrysubtype'], country['countryformalname'], country['countrysovereignty']))
 
 def insertSummaries (db):
 	jzimSummaries = getDirFilesNames('../data/summaries')
