@@ -1,13 +1,10 @@
-import json
-import os
-import MySQLdb
+import json, MySQLdb, glob
 from _mysql import NULL
 
 def getDirFilesNames(path):
 	files = []
-	for name in os.listdir(path):
-		if os.path.isfile(os.path.join(path, name)):
-			files.append(name)
+	for name in glob.glob(path + '*.json'):
+		files.append(name)
 	return files
 
 def connectBd(ip, door, userName, password, dbName):
