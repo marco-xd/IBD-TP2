@@ -3,7 +3,7 @@ from _mysql import NULL
 
 def getDirFilesNames(path):
 	files = []
-	for name in glob.glob(path + '*.json'):
+	for name in glob.glob(path + '/*.json'):
 		files.append(name)
 	return files
 
