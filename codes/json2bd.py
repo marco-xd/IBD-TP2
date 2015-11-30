@@ -95,9 +95,9 @@ def insertAchievementsAndStats (db):
 			fR.close()
 		myId = jName[:-5]
 		print "\r" + myId, 
-		for acv in jzim['achievements']:
-			cursor.execute("INSERT INTO achievements(appid, achi_name, defaultvalue, displayname, hidden, icon, icongray) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-				(myId, acv['name'], acv['defaultvalue'], acv['displayName'], acv['hidden'], acv['icon'], acv['icongray']))
+		# for acv in jzim['achievements']:
+		# 	cursor.execute("INSERT INTO achievements(appid, achi_name, defaultvalue, displayname, hidden, icon, icongray) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+		# 		(myId, acv['name'], acv['defaultvalue'], acv['displayName'], acv['hidden'], acv['icon'], acv['icongray']))
 		for stat in jzim['stats']:
 			cursor.execute("INSERT INTO stats(appid, stat_name, defaultvalue, displayname) VALUES (%s, %s, %s, %s)",
 				(myId, stat['name'], stat['defaultvalue'], stat['displayName']))
@@ -204,10 +204,10 @@ try:
 	# insertFriends(db)
 	# print('Inserting details...')
 	# insertDetails(db)
-	# print('Inserting achievements and stats...')
-	# insertAchievementsAndStats(db)
-	# # print('Inserting player achievements...')
-	# # insertPlayerAchievements(db)
+	print('Inserting achievements and stats...')
+	insertAchievementsAndStats(db)
+	# print('Inserting player achievements...')
+	# insertPlayerAchievements(db)
 	print('Inserting player stats...')
 	insertPlayerStats(db)
 	print('Inserting owned...')

@@ -105,23 +105,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- ENGINE = MyISAM;
 
 
--- DROP TABLE IF EXISTS stats ;
-
--- CREATE TABLE IF NOT EXISTS stats (
---   appid INT NOT NULL,
---   stat_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
---   defaultvalue BIGINT NOT NULL,
---   displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-
---   PRIMARY KEY (appid, stat_name),
-
---   FOREIGN KEY (appid)
---     REFERENCES details (appid)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE)
--- ENGINE = MyISAM;
-
-
 -- DROP TABLE IF EXISTS playerachievements ;
 
 -- CREATE TABLE IF NOT EXISTS playerachievements (
@@ -142,6 +125,23 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 --     ON DELETE CASCADE
 --     ON UPDATE CASCADE)
 -- ENGINE = MyISAM;
+
+
+DROP TABLE IF EXISTS stats ;
+
+CREATE TABLE IF NOT EXISTS stats (
+  appid INT NOT NULL,
+  stat_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  defaultvalue DOUBLE NOT NULL,
+  displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+
+  PRIMARY KEY (appid, stat_name),
+
+  FOREIGN KEY (appid)
+    REFERENCES details (appid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = MyISAM;
 
 
 DROP TABLE IF EXISTS playerstats ;
