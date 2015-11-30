@@ -1,5 +1,10 @@
-import json, MySQLdb, glob, sys, os, codecs
+import json, MySQLdb, glob, sys, os, codecs, re
 from _mysql import NULL
+
+re_pattern = re.compile(u'[^\u0000-\uD7FF\uE000-\uFFFF]', re.UNICODE)
+
+def remove4bytesUTF8 (txt):
+	return re_pattern.sub(u'\uFFFD', txt)  
 
 def normalizePath (path):
 	abspath = os.path.dirname(os.path.abspath(sys.argv[0]))
@@ -42,7 +47,7 @@ def insertSummaries (db):
 				aux['avatar'],
 				aux['communityvisibilitystate'],
 				aux['avatarmedium'],
-				aux['personaname'],
+				remove4bytesUTF8(aux['personaname']),
 				aux['personastate'],
 				aux['profilestate'],
 				aux['lastlogoff'],
@@ -76,12 +81,12 @@ def insertDetails (db):
 			game = json.load(fo)
 			fo.close()
 		appid = f[:-5]
-		print(appid)
+		# print(appid)
 		cursor.execute('INSERT INTO `details` (`appid`, `about_the_game`, `background`, `coming_soon`, `detailed_description`, `dlc_from`,' +
 			' `header_image`, `is_free`, `linux_requirements`, `linux_support`, `mac_requirements`, `mac_support`, `pc_requirements`, `price`,' +
 			' `release_date`, `required_age`, `support_email`, `support_url`, `supported_languages`, `type`, `website`, `windows_support`)' +
 			' VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-			(appid, game['about_the_game'], game['background'], game['coming_soon'], game['detailed_description'], game['dlc_from'],
+			(appid, remove4bytesUTF8(game['about_the_game']), game['background'], game['coming_soon'], remove4bytesUTF8(game['detailed_description']), game['dlc_from'],
 				game['header_image'], game['is_free'], game['linux_requirements'], game['linux_support'], game['mac_requirements'], game['mac_support'], game['pc_requirements'], game['price'],
 				game['release_date'], game['required_age'], game['support_email'], game['support_url'], game['supported_languages'], game['type'], game['website'], game['windows_support']))
 
