@@ -3,13 +3,13 @@ from _mysql import NULL
 
 def normalizePath (path):
 	abspath = os.path.dirname(os.path.abspath(sys.argv[0]))
-	return os.path.abspath(abspath + '/' + path) + '/*.json'
+	return os.path.abspath(abspath + '/' + path)
 
 
 def getDirFilesNames (path):
 	files = []
 	for name in glob.glob(normalizePath(path)):
-		files.append(os.path.basename(name))
+		files.append(os.path.basename(name) + '/*.json')
 	return files
 
 #[:len(name)-5]
