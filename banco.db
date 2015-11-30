@@ -11,10 +11,12 @@ CREATE TABLE IF NOT EXISTS countries (
   countrycurrency VARCHAR(63) NOT NULL,
   loccountrycode CHAR(2) NOT NULL,
   countrytype VARCHAR(63) NOT NULL,
-  countryubtype VARCHAR(63) NOT NULL,
+  countrysubtype VARCHAR(63) NOT NULL,
   countryformalname VARCHAR(63) NOT NULL,
   countrysovereignty VARCHAR(63) NOT NULL,
+
   PRIMARY KEY (loccountrycode))
+
 ENGINE = MyISAM;
 
 
@@ -34,12 +36,13 @@ CREATE TABLE IF NOT EXISTS summaries (
   personastateflags INT NOT NULL,
   profileurl VARCHAR(255) NOT NULL,
   loccountrycode CHAR(2) NOT NULL,
+
   PRIMARY KEY (steamid),
-  CONSTRAINT loccountrycode
-    FOREIGN KEY (loccountrycode)
+
+  FOREIGN KEY (loccountrycode)
     REFERENCES countries (loccountrycode)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
 ENGINE = MyISAM;
 
 
@@ -53,7 +56,7 @@ CREATE TABLE IF NOT EXISTS details (
   coming_soon TINYINT(1) NOT NULL,
   detailed_description VARCHAR(255) NOT NULL,
   dlc_from INT NOT NULL,
-  detailscol VARCHAR(255) NOT NULL,
+  header_image VARCHAR(255) NOT NULL,
   is_free TINYINT(1) NOT NULL,
   linux_requirements VARCHAR(255) NOT NULL,
   linux_support TINYINT(1) NOT NULL,
@@ -66,10 +69,12 @@ CREATE TABLE IF NOT EXISTS details (
   support_email VARCHAR(255) NOT NULL,
   support_url VARCHAR(255) NOT NULL,
   supported_languages VARCHAR(255) NOT NULL,
-  type VARCHAR(255) NOT NULL,
+  type VARCHAR(16) NOT NULL,
   website VARCHAR(255) NOT NULL,
   windows_support TINYINT(1) NOT NULL,
+
   PRIMARY KEY (appid))
+
 ENGINE = MyISAM;
 
 
@@ -83,12 +88,13 @@ CREATE TABLE IF NOT EXISTS achievements (
   hidden TINYINT(1) NOT NULL,
   icon VARCHAR(255) NOT NULL,
   icongray VARCHAR(255) NOT NULL,
+
   PRIMARY KEY (appid, achi_name),
-  CONSTRAINT appid
-    FOREIGN KEY (appid)
+
+  FOREIGN KEY (appid)
     REFERENCES details (appid)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE NO CASCADE
+    ON UPDATE NO CASCADE)
 ENGINE = MyISAM;
 
 
@@ -96,15 +102,16 @@ DROP TABLE IF EXISTS stats ;
 
 CREATE TABLE IF NOT EXISTS stats (
   appid INT NOT NULL,
-  stats_name VARCHAR(255) NOT NULL,
+  stat_name VARCHAR(255) NOT NULL,
   defaultvalue INT NOT NULL,
   displayname VARCHAR(255) NOT NULL,
-  PRIMARY KEY (appid, stats_name),
-  CONSTRAINT appid
-    FOREIGN KEY (appid)
+
+  PRIMARY KEY (appid, stat_name),
+
+  FOREIGN KEY (appid)
     REFERENCES details (appid)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = MyISAM;
 
 
@@ -113,24 +120,20 @@ DROP TABLE IF EXISTS playerstats ;
 CREATE TABLE IF NOT EXISTS playerstats (
   steamid VARCHAR(17) NOT NULL,
   appid INT NOT NULL,
-  stats_name VARCHAR(255) NOT NULL,
+  stat_name VARCHAR(255) NOT NULL,
   value INT NOT NULL,
-  PRIMARY KEY (steamid, appid, stats_name),
-  CONSTRAINT steamid
-    FOREIGN KEY (steamid)
+
+  PRIMARY KEY (steamid, appid, stat_name),
+
+  FOREIGN KEY (steamid)
     REFERENCES summaries (steamid)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT appid
-    FOREIGN KEY (appid)
-    REFERENCES details (appid)
+
+  FOREIGN KEY (appid, stat_name)
+    REFERENCES stats (appid, stat_name)
     ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT stats_name
-    FOREIGN KEY (stats_name)
-    REFERENCES stats (stats_name)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE
 ENGINE = MyISAM;
 
 
@@ -141,22 +144,18 @@ CREATE TABLE IF NOT EXISTS playerachievements (
   appid INT NOT NULL,
   achi_name VARCHAR(255) NOT NULL,
   achieved TINYINT(1) NOT NULL,
+
   PRIMARY KEY (steamid, appid, achi_name),
-  CONSTRAINT steamid
-    FOREIGN KEY (steamid)
+
+  FOREIGN KEY (steamid)
     REFERENCES summaries (steamid)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT appid
-    FOREIGN KEY (appid)
-    REFERENCES details (appid)
+
+  FOREIGN KEY (appid, achi_name)
+    REFERENCES achievements (appid, achi_name)
     ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT achi_name
-    FOREIGN KEY (achi_name)
-    REFERENCES achievements (achi_name)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE
 ENGINE = MyISAM;
 
 
@@ -167,14 +166,15 @@ CREATE TABLE IF NOT EXISTS owned (
   appid INT NOT NULL,
   playtime_forever INT NOT NULL,
   playtime_2weeks INT NOT NULL,
+
   PRIMARY KEY (steamid, appid),
-  CONSTRAINT steamid
-    FOREIGN KEY (steamid)
+
+  FOREIGN KEY (steamid)
     REFERENCES summaries (steamid)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT appid
-    FOREIGN KEY (appid)
+
+  FOREIGN KEY (appid)
     REFERENCES details (appid)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
@@ -189,13 +189,13 @@ CREATE TABLE IF NOT EXISTS friends (
   steamid1 CHAR(17) NOT NULL,
   steamid2 CHAR(17) NOT NULL,
   PRIMARY KEY (steamid1, steamid2),
-  CONSTRAINT steamid1
-    FOREIGN KEY (steamid1)
+
+  FOREIGN KEY (steamid1)
     REFERENCES summaries (steamid)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT steamid2
-    FOREIGN KEY (steamid2)
+
+  FOREIGN KEY (steamid2)
     REFERENCES summaries (steamid)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
@@ -215,12 +215,13 @@ CREATE TABLE IF NOT EXISTS news (
   feedlabel VARCHAR(255) NOT NULL,
   date INT NOT NULL,
   feedname VARCHAR(255) NOT NULL,
+
   PRIMARY KEY (appid, gid),
-  CONSTRAINT appid
-    FOREIGN KEY (appid)
+
+  FOREIGN KEY (appid)
     REFERENCES details (appid)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = MyISAM;
 
 
@@ -229,12 +230,13 @@ DROP TABLE IF EXISTS developers ;
 CREATE TABLE IF NOT EXISTS developers (
   appid INT NOT NULL,
   dev_name VARCHAR(255) NOT NULL,
+
   PRIMARY KEY (appid, dev_name),
-  CONSTRAINT appid
-    FOREIGN KEY (appid)
+
+  FOREIGN KEY (appid)
     REFERENCES details (appid)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = MyISAM;
 
 
@@ -244,8 +246,8 @@ CREATE TABLE IF NOT EXISTS publishers (
   pub_name VARCHAR(255) NOT NULL,
   appid INT NOT NULL,
   PRIMARY KEY (pub_name, appid),
-  CONSTRAINT appid
-    FOREIGN KEY (appid)
+
+  FOREIGN KEY (appid)
     REFERENCES details (appid)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
