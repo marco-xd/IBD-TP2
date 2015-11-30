@@ -10,13 +10,13 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 DROP TABLE IF EXISTS countries ;
 
 CREATE TABLE IF NOT EXISTS countries (
-  countryname VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  countrycurrency VARCHAR(64) NOT NULL,
+  countryname VARCHAR(63) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  countrycurrency VARCHAR(63) NOT NULL,
   loccountrycode CHAR(2) NOT NULL,
-  countrytype VARCHAR(64) NOT NULL,
-  countrysubtype VARCHAR(64) NOT NULL, /* TODO: alterar countryubtype para countrysubtype */
-  countryformalname VARCHAR(64) NOT NULL,
-  countrysovereignty VARCHAR(64) NOT NULL,
+  countrytype VARCHAR(63) NOT NULL,
+  countrysubtype VARCHAR(63) NOT NULL, /* TODO: alterar countryubtype para countrysubtype */
+  countryformalname VARCHAR(63) NOT NULL,
+  countrysovereignty VARCHAR(63) NOT NULL,
 
   PRIMARY KEY (loccountrycode))
 
@@ -66,10 +66,10 @@ CREATE TABLE IF NOT EXISTS details (
   mac_support TINYINT(1) NOT NULL,
   pc_requirements TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   price INT NOT NULL,
-  release_date VARCHAR(64) NOT NULL,
+  release_date VARCHAR(63) NOT NULL,
   required_age INT NOT NULL,
   support_email VARCHAR(255) NOT NULL,
-  support_url VARCHAR(255) NOT NULL,
+  support_url VARCHAR(1023) NOT NULL,
   supported_languages TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   type VARCHAR(16) NOT NULL,
   website VARCHAR(255) NOT NULL,
