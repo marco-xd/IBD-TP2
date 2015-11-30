@@ -1,10 +1,5 @@
-import json, MySQLdb, glob, sys, os, codecs, re
+import json, MySQLdb, glob, sys, os, codecs
 from _mysql import NULL
-
-re_pattern = re.compile(u'[^\u0000-\uD7FF\uE000-\uFFFF]', re.UNICODE)
-
-def remove4bytesUTF8 (txt):
-	return txt#re_pattern.sub(u'\uFFFD', txt)
 
 def normalizePath (path):
 	abspath = os.path.dirname(os.path.abspath(sys.argv[0]))
@@ -47,7 +42,7 @@ def insertSummaries (db):
 				aux['avatar'],
 				aux['communityvisibilitystate'],
 				aux['avatarmedium'],
-				remove4bytesUTF8(aux['personaname']),
+				aux['personaname'],
 				aux['personastate'],
 				aux['profilestate'],
 				aux['lastlogoff'],
@@ -86,7 +81,7 @@ def insertDetails (db):
 			' `header_image`, `is_free`, `linux_requirements`, `linux_support`, `mac_requirements`, `mac_support`, `pc_requirements`, `price`,' +
 			' `release_date`, `required_age`, `support_email`, `support_url`, `supported_languages`, `type`, `website`, `windows_support`)' +
 			' VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-			(appid, remove4bytesUTF8(game['about_the_game']), game['background'], game['coming_soon'], remove4bytesUTF8(game['detailed_description']), game['dlc_from'],
+			(appid, game['about_the_game'], game['background'], game['coming_soon'], game['detailed_description'], game['dlc_from'],
 				game['header_image'], game['is_free'], game['linux_requirements'], game['linux_support'], game['mac_requirements'], game['mac_support'], game['pc_requirements'], game['price'],
 				game['release_date'], game['required_age'], game['support_email'], game['support_url'], game['supported_languages'], game['type'], game['website'], game['windows_support']))
 
@@ -131,7 +126,7 @@ def insertPlayerStats (db):
 			jzim = json.load(fR)
 			fR.close()
 		myId = jName[:-5]
-		# print(myId)
+		print("\r" + myId)
 		for gId, info in jzim.iteritems():
 			for aux in info:
 				cursor.execute("INSERT INTO playerstats(steamid, appid, stat_name, value) VALUES (%s, %s, %s, %s)",
@@ -202,18 +197,18 @@ cursor.execute("SET CHARACTER SET utf8mb4")
 cursor.execute("SET character_set_connection=utf8mb4")
 
 try:
-	print('Inserting countries...')
-	insertCountries(db)
-	print('Inserting summaries...')
-	insertSummaries(db)
-	print('Inserting friends...')
-	insertFriends(db)
-	print('Inserting details...')
-	insertDetails(db)
-	print('Inserting achievements and stats...')
-	insertAchievementsAndStats(db)
-	print('Inserting player achievements...')
-	insertPlayerAchievements(db)
+	# print('Inserting countries...')
+	# insertCountries(db)
+	# print('Inserting summaries...')
+	# insertSummaries(db)
+	# print('Inserting friends...')
+	# insertFriends(db)
+	# print('Inserting details...')
+	# insertDetails(db)
+	# print('Inserting achievements and stats...')
+	# insertAchievementsAndStats(db)
+	# # print('Inserting player achievements...')
+	# # insertPlayerAchievements(db)
 	print('Inserting player stats...')
 	insertPlayerStats(db)
 	print('Inserting owned...')
