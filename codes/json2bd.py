@@ -2,8 +2,8 @@ import json, MySQLdb, glob, sys, os
 from _mysql import NULL
 
 def getDirFilesNames(path):
-	abspath = os.path.abspath(sys.argv[0])
-	files = []
+	abspath = os.path.dirname(os.path.abspath(sys.argv[0]))
+	print(os.path.abspath(abspath + '/' + path) + '/*.json')
 	for name in glob.glob(os.path.abspath(abspath + '/' + path) + '/*.json'):
 		files.append(name)
 	return files
