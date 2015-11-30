@@ -45,9 +45,9 @@
 
 <?php
 $servername="localhost";
-$username="hugo";
-$password="";
-$dbname = "imdb_top250";
+$username="ibdsteam";
+$password="ufmg123";
+$dbname = "steam";
 
 
 //Create connection
