@@ -63,7 +63,7 @@ def insertPlayerStats (db):
 		myId = jName[:-5]
 		for gId, info in jzim.iteritems():
 			for aux in info:
-				cursor.execute("INSERT INTO playerstats(steamid, appid, stats_name, value) VALUES ('%s', '%s', '%s', '%d')",
+				cursor.execute("INSERT INTO playerstats(steamid, appid, stats_name, value) VALUES ('%s', '%s', '%s', '%s')",
 					(myId, gId, aux['name'], aux['value']))
 
 
@@ -77,7 +77,7 @@ def insertSummaries (db):
 			fR.close()
 		myId = jName[:-5]
 		cursor.execute("INSERT INTO summaries (steamid, avatar, communityvisibilitystate, avatarmedium, personaname, personastate, profilestate, lastlogoff, avatarfull, personastateflags, profileurl, loccountrycode, commentpermission)" +
-		"VALUES ('%s', '%s', '%d', '%s', '%s', %d, '%s', %d, '%s', '%d', '%s', '%s', '%d')",
+		"VALUES ('%s', '%s', '%s', '%s', '%s', %d, '%s', %d, '%s', '%s', '%s', '%s', '%s')",
 			(
 				myId,
 				aux['avatar'],
@@ -105,9 +105,8 @@ def insertAchievements (db):
 			fR.close()
 		myId = jName[:-5]
 		for acv in jzim['achievements']:
-			print((myId, acv['name'], int(acv['defaultvalue']), acv['displayName'], int(acv['hidden']), acv['icon'], acv['icongray']))
-			cursor.execute("INSERT INTO achievements(appid, achi_name, defaultvalue, displayname, hidden, icon, icongray) VALUES ('%s', '%s', '%d', '%s', '%d', '%s', '%s')",
-				(myId, acv['name'], int(acv['defaultvalue']), acv['displayName'], int(acv['hidden']), acv['icon'], acv['icongray']))
+			cursor.execute("INSERT INTO achievements(appid, achi_name, defaultvalue, displayname, hidden, icon, icongray) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+				(myId, acv['name'], acv['defaultvalue'], acv['displayName'], acv['hidden'], acv['icon'], acv['icongray']))
 	
 def main ():
 	host = 'localhost'
