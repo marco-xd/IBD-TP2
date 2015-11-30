@@ -188,25 +188,25 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- ENGINE = MyISAM;
 
 
-DROP TABLE IF EXISTS friends ;
+-- DROP TABLE IF EXISTS friends ;
 
-CREATE TABLE IF NOT EXISTS friends (
-  relationship VARCHAR(16) NOT NULL,
-  friend_since INT NOT NULL,
-  steamid1 CHAR(17) NOT NULL,
-  steamid2 CHAR(17) NOT NULL,
-  PRIMARY KEY (steamid1, steamid2),
+-- CREATE TABLE IF NOT EXISTS friends (
+--   relationship VARCHAR(16) NOT NULL,
+--   friend_since INT NOT NULL,
+--   steamid1 CHAR(17) NOT NULL,
+--   steamid2 CHAR(17) NOT NULL,
+--   PRIMARY KEY (steamid1, steamid2),
 
-  FOREIGN KEY (steamid1)
-    REFERENCES summaries (steamid)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
+--   FOREIGN KEY (steamid1)
+--     REFERENCES summaries (steamid)
+--     ON DELETE CASCADE
+--     ON UPDATE CASCADE,
 
-  FOREIGN KEY (steamid2)
-    REFERENCES summaries (steamid)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = MyISAM;
+--   FOREIGN KEY (steamid2)
+--     REFERENCES summaries (steamid)
+--     ON DELETE CASCADE
+--     ON UPDATE CASCADE)
+-- ENGINE = MyISAM;
 
 
 DROP TABLE IF EXISTS news ;
@@ -218,7 +218,7 @@ CREATE TABLE IF NOT EXISTS news (
   url VARCHAR(255) NOT NULL,
   is_external_url TINYINT(1) NOT NULL,
   author VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  contents TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  contents LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   feedlabel VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   date INT NOT NULL,
   feedname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -232,33 +232,33 @@ CREATE TABLE IF NOT EXISTS news (
 ENGINE = MyISAM;
 
 
-DROP TABLE IF EXISTS developers ;
+-- DROP TABLE IF EXISTS developers ;
 
-CREATE TABLE IF NOT EXISTS developers (
-  appid INT NOT NULL,
-  dev_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+-- CREATE TABLE IF NOT EXISTS developers (
+--   appid INT NOT NULL,
+--   dev_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 
-  PRIMARY KEY (appid, dev_name),
+--   PRIMARY KEY (appid, dev_name),
 
-  FOREIGN KEY (appid)
-    REFERENCES details (appid)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = MyISAM;
+--   FOREIGN KEY (appid)
+--     REFERENCES details (appid)
+--     ON DELETE CASCADE
+--     ON UPDATE CASCADE)
+-- ENGINE = MyISAM;
 
 
-DROP TABLE IF EXISTS publishers ;
+-- DROP TABLE IF EXISTS publishers ;
 
-CREATE TABLE IF NOT EXISTS publishers (
-  pub_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  appid INT NOT NULL,
-  PRIMARY KEY (pub_name, appid),
+-- CREATE TABLE IF NOT EXISTS publishers (
+--   pub_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+--   appid INT NOT NULL,
+--   PRIMARY KEY (pub_name, appid),
 
-  FOREIGN KEY (appid)
-    REFERENCES details (appid)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = MyISAM;
+--   FOREIGN KEY (appid)
+--     REFERENCES details (appid)
+--     ON DELETE CASCADE
+--     ON UPDATE CASCADE)
+-- ENGINE = MyISAM;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
