@@ -6,7 +6,7 @@ re_pattern = re.compile(u'[^\u0000-\uD7FF\uE000-\uFFFF]', re.UNICODE)
 def remove4bytesUTF8 (txt):
 	result = re_pattern.sub(u'\uFFFD', txt)
 	if result != txt:
-		print((result, txt, result.decode('utf8'), txt.decode('utf8')))
+		print((result, txt, result.encode('utf8'), txt.encode('utf8')))
 	return result
 
 def normalizePath (path):
