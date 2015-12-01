@@ -89,9 +89,9 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- CREATE TABLE IF NOT EXISTS achievements (
 --   appid INT NOT NULL,
---   achi_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, /* ALTER */
---   defaultvalue INT NOT NULL,
---   displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+--   achi_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+--   achi_defaultvalue TINYINT(1) NOT NULL,
+--   achi_displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 --   hidden TINYINT(1) NOT NULL,
 --   icon VARCHAR(255) NOT NULL,
 --   icongray VARCHAR(255) NOT NULL,
@@ -110,7 +110,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- CREATE TABLE IF NOT EXISTS playerachievements (
 --   steamid CHAR(17) NOT NULL,
 --   appid INT NOT NULL,
---   achi_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, /* ALTER */
+--   achi_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
 --   achieved TINYINT(1) NOT NULL,
 
 --   PRIMARY KEY (steamid, appid, achi_name),
@@ -132,8 +132,8 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- CREATE TABLE IF NOT EXISTS stats (
 --   appid INT NOT NULL,
 --   stat_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
---   defaultvalue DOUBLE NOT NULL,
---   displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+--   stat_defaultvalue DOUBLE NOT NULL, /* ALTER TABLE stats CHANGE COLUMN defaultvalue stat_defaultvalue DOUBLE NOT NULL; */
+--   stat_displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, /* ALTER TABLE stats CHANGE COLUMN displayname stat_displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;  */
 
 --   PRIMARY KEY (appid, stat_name),
 
@@ -147,7 +147,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 DROP TABLE IF EXISTS playerstats ;
 
 CREATE TABLE IF NOT EXISTS playerstats (
-  steamid CHAR(17) NOT NULL, /* ALTER */
+  steamid CHAR(17) NOT NULL,
   appid INT NOT NULL,
   stat_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   value DOUBLE NOT NULL,

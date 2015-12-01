@@ -5,7 +5,6 @@ def normalizePath (path):
 	abspath = os.path.dirname(os.path.abspath(sys.argv[0]))
 	return os.path.abspath(abspath + '/' + path)
 
-
 def getDirFilesNames (path):
 	files = []
 	for name in glob.glob(normalizePath(path) + '/*.json'):
