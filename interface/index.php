@@ -88,7 +88,7 @@
 					Para cada pessoa selecionar todos os amigos que possuem jogos em comum e mostrar o id do jogo
 				</option>
 				
-				<option value="SELECT `steamid`, `personaname`, CASE WHEN SUM(`price`) > 10000 THEN &quot;verdadeiro&quot; ELSE &quot;falso&quot; END FROM `summaries` NATURAL JOIN `owned` NATURAL JOIN `details` WHERE `is_free` = 0 GROUP BY `steamid`;">
+				<option value="SELECT `steamid`, `personaname`, CASE WHEN SUM(`price`) > 10000 THEN &quot;verdadeiro&quot; ELSE &quot;falso&quot; END AS verdadeiro_ou_falso FROM `summaries` NATURAL JOIN `owned` NATURAL JOIN `details` WHERE `is_free` = 0 GROUP BY `steamid`;">
 					Mostrar &quot;verdadeiro&quot; se uma pessoa gastou mais que R$ 100,00 em jogos e &quot;falso&quot; caso contr&aacute;rio
 				</option>
 				
