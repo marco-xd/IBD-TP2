@@ -76,8 +76,8 @@
 					Mostrar o id, a imagem, o total de players e o total de tempo jogado de cada jogo
 				</option>
 				
-				<option value="SELECT c1.`countryformalname`, aux.`id`, aux.`nome`, MAX(aux.`total`) FROM (SELECT s.`steamid` AS id, s.`personaname` AS NOME, s.`loccountrycode` AS loccountrycode, COUNT(pa.`achieved`) AS total FROM `summaries` s NATURAL JOIN `playerachievements` pa GROUP BY s.`steamid`) aux NATURAL JOIN `countries` c1 GROUP BY c1.`countryformalname` ORDER BY MAX(total);">
-					Mostrar o nome do país e o nome do habitante que mais possui achievements
+				<option value="SELECT c1.`countryformalname`, aux.`id`, aux.`nome`, MAX(aux.`total`), aux.`avatarmedium` FROM (SELECT s.`steamid` AS id, s.`personaname` AS NOME, s.`loccountrycode` AS loccountrycode, COUNT(pa.`achieved`) AS total FROM `summaries` s NATURAL JOIN `playerachievements` pa GROUP BY s.`steamid`) aux NATURAL JOIN `countries` c1 GROUP BY c1.`countryformalname` ORDER BY MAX(total);">
+					Mostrar o nome do país e o nome e avatar do habitante que mais possui achievements
 				</option>
 				
 				<option value="SELECT D.`appid`, D.`dev_name` FROM `developers` D JOIN `publishers` P ON D.`appid` = P.`appid` AND D.`dev_name` = P.`pub_name` ORDER BY D.`appid`;">
@@ -92,8 +92,8 @@
 					Mostrar &quot;verdadeiro&quot; se uma pessoa gastou mais que R$ 100,00 em jogos e &quot;falso&quot; caso contr&aacute;rio
 				</option>
 				
-				<option value="SELECT `steamid`, `personaname`, `appid` FROM `summaries` NATURAL JOIN `owned` NATURAL JOIN `details` WHERE `playtime_2weeks` > 0 AND `supported_languages` LIKE '%Portuguese%';">
-					Mostrar o nome das pessoas que jogaram um jogo nas últimas 2 semanas que possui suporte para língua portuguesa
+				<option value="SELECT `steamid`, `personaname`, `header_image` FROM `summaries` NATURAL JOIN `owned` NATURAL JOIN `details` WHERE `playtime_2weeks` > 0 AND `supported_languages` LIKE '%Portuguese%';">
+					Se a pessoa jogou um jogo com suporte para l&iacute;ngua portuguesa nas &uacute;timas duas semanas, exibir steamid e nome da pessoa e imagem do jogo
 				</option>
 				
 				<option value="SELECT c.`countryformalname`, COUNT(DISTINCT d.`appid`) / aux.total FROM `countries` c NATURAL JOIN `summaries` s NATURAL JOIN `owned` o NATURAL JOIN `details` d NATURAL JOIN (SELECT c1.`loccountrycode`, COUNT(DISTINCT s1.`steamid`) AS total FROM `countries` c1 NATURAL JOIN `summaries` s1 GROUP BY c1.`loccountrycode`) aux WHERE d.`is_free` = 0 GROUP BY c.`countryformalname`;">
