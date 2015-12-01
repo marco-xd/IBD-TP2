@@ -61,7 +61,7 @@ def friendsGenerator(all_Ids):
             friends[uid][friend] = { 'steamid': friend, 'friend_since': random.randint(998307200, 1246422390) }
             ids.remove(friend)
     for i, uid in enumerate(all_Ids):
-        print('[' + str(i) + '] write-friends for ' + str(uid) + ' len: ' + len(friends[uid]))
+        print('[' + str(i) + '] write-friends for ' + str(uid) + ' len: ' + str(len(friends[uid])))
         with open(normalizePath('../data/new_friends/') + str(uid) + '.json', 'w') as fo:
             json.dump(friends[uid], fo)
             fo.close()
