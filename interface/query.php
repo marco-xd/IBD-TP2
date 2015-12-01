@@ -58,6 +58,8 @@ if ($conn->connect_errno) {
 	die("Connection failed: " . $conn->connect_error);
 }
 
+$conn->set_charset('utf8');
+
 $stmt = $_POST["stmt"];
 
 if($result = $conn->query($stmt)){
@@ -84,12 +86,37 @@ $colunas = $result->fetch_fields();
 	echo  "</tr>";
 	echo "</thead>";
 	echo "<tbody>";
-//Todas as linhas da query  //http://php.net/manual/pt_BR/mysqli-result.fetch-assoc.php
+
+$txtlen = 220;
+
 while( $linhas = $result->fetch_assoc() ) {
     echo "<tr>";
-      foreach($linhas AS $col){
+      foreach($linhas AS $name => $col){
         echo "<td>";
-            echo $col;
+		$txt = htmlentities($col);
+		switch ($name) {
+			case 'avatar':
+				echo '<img src="' . $txt . '" width="32" height="32" alt="' . $txt . '" />';
+			break;
+			case 'avatarmedium':
+				echo '<img src="' . $txt . '" width="64" height="64" alt="' . $txt . '" />';
+			break;
+			case 'avatarfull':
+				echo '<img src="' . $txt . '" width="184" height="184" alt="' . $txt . '" />';
+			break;
+			case 'header_image':
+				echo '<img src="' . $txt . '" height="100" alt="' . $txt . '" />';
+			break;
+			default:
+				if (filter_var($col, FILTER_VALIDATE_EMAIL)) {
+					echo '<a target="_blank" href="mailto:' . $txt . '" title="' . $txt . '">' . (mb_strlen($txt) > $txtlen ? mb_substr($txt, 0, $txtlen) . '&hellip;' : $txt) . '</a>';
+				} else if (filter_var($col, FILTER_VALIDATE_URL)) {
+					echo '<a target="_blank" href="' . $txt . '" title="' . $txt . '">' . (mb_strlen($txt) > $txtlen ? mb_substr($txt, 0, $txtlen) . '&hellip;' : $txt) . '</a>';
+				} else {
+					echo '<span title="' . $txt . '">' . (mb_strlen($txt) > $txtlen ? mb_substr($txt, 0, $txtlen) . '&hellip;' : $txt). '</span>';
+				}
+			break;
+		}
        echo "</td>";
       }
     echo  "</tr>"; 

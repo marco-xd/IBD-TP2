@@ -66,8 +66,7 @@
         <option value="select appid from details where linux_support = 1 and mac_support = 1 and windows_support = 1 order by appid;">
                       Mostrar o appid dos jogos que possuem suporte para todas as plataformas</option>
         
-        <option value="select steamid , personaname  , max(playtime_forever)  , appid from summaries natural join owned natural join details group by steamid;">
-                      Mostrar o id da pessoa e o nome e o id do jogo que ela mais jogou</option>
+        <option value="SELECT `avatarmedium`, `steamid`, `personaname`, MAX(`playtime_forever`), `appid` FROM `summaries` NATURAL JOIN `owned` GROUP BY `steamid`">Mostrar o id, nome e avatar de cada jogador e o id do jogo que ela mais jogou</option>
         
         <option value="select appid , count(steamid) , sum(playtime_forever) from summaries natural join owned natural join details group by appid ;">
                       Mostrar o id e o total de players e o total de tempo jogado de cada jogo</option>
