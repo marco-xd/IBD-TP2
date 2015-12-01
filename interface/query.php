@@ -51,7 +51,7 @@ $dbname = "steam";
 
 
 //Create connection
-$conn=new mysqli($servername,$username,$password,$dbname);
+$conn = new mysqli($servername,$username,$password,$dbname);
 
 //Check connection
 if ($conn->connect_errno) {
@@ -62,7 +62,11 @@ $conn->set_charset('utf8');
 
 $stmt = $_POST["stmt"];
 
+$exectime = microtime(true);
+
 if($result = $conn->query($stmt)){
+
+$exectime = microtime(true) - $exectime;
 //Imprime Tabela de Resultados
 
 //Matriz com os dados das colunas //http://php.net/manual/pt_BR/mysqli-result.fetch-fields.php
@@ -71,7 +75,7 @@ $colunas = $result->fetch_fields();
 
 //Imprimindo a tabela
 ?>
-
+<div>Consulta levou <?= $exectime; ?> segundos</div>
 <div class="table-responsive" id="resQuery">
 	<table class="table table-striped table-bordered">
 		<thead>
