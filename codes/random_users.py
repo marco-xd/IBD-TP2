@@ -53,7 +53,8 @@ def friendList(myId, all_Users):
 
 def friendsGenerator(all_Ids):
     friends = dict.fromkeys(all_Ids, {})
-    for uid in all_Ids:
+    for i, uid in enumerate(all_Ids):
+        print('[' + str(i) + '] friends for ' + str(uid))
         ids = set([ k for k in all_Ids if k not in friends[uid] and k != uid ])
         for _ in range(random.randint(0, max(len(all_Ids) - len(friends[uid]), 0))):
             friend = random.choice(list(ids))
