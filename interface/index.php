@@ -57,7 +57,7 @@
 				<option value=""> SELECIONE SUA PESQUISA</option>
 
 				<option value="SELECT `countryformalname`, SUM(`price`) FROM `countries` NATURAL JOIN `summaries` NATURAL JOIN `owned` NATURAL JOIN `details` WHERE `is_free` = 0 GROUP BY `countryformalname` ORDER BY SUM(`price`);">
-					Mostrar o nome do país seguido de o total gasto por jogos não gratis
+					Mostrar o nome do país seguido de o total gasto (em centavos) por jogos não gratis
 				</option>
 
 				<option value="SELECT `appid` FROM `details` WHERE `linux_support` = 1 AND `appid` NOT IN (SELECT DISTINCT `appid` FROM `news`);">
@@ -72,8 +72,8 @@
 					Mostrar o id, nome e avatar de cada jogador e o id do jogo que ela mais jogou
 				</option>
 				
-				<option value="SELECT `appid`, COUNT(`steamid`), SUM(`playtime_forever`) FROM `summaries` NATURAL JOIN `owned` GROUP BY `appid`;">
-					Mostrar o id, o total de players e o total de tempo jogado de cada jogo
+				<option value="SELECT `appid`, `header_image`, COUNT(`steamid`), SUM(`playtime_forever`) FROM `summaries` NATURAL JOIN `owned` GROUP BY `appid`;">
+					Mostrar o id, a imagem, o total de players e o total de tempo jogado de cada jogo
 				</option>
 				
 				<option value="SELECT c1.`countryformalname`, aux.`id`, aux.`nome`, MAX(aux.`total`) FROM (SELECT s.`steamid` AS id, s.`personaname` AS NOME, s.`loccountrycode` AS loccountrycode, COUNT(pa.`achieved`) AS total FROM `summaries` s NATURAL JOIN `playerachievements` pa GROUP BY s.`steamid`) aux NATURAL JOIN `countries` c1 GROUP BY c1.`countryformalname` ORDER BY MAX(total);">
@@ -92,20 +92,20 @@
 					Mostrar &quot;verdadeiro&quot; se uma pessoa gastou mais que R$ 100,00 em jogos e &quot;falso&quot; caso contr&aacute;rio
 				</option>
 				
-				<option value="select steamid , personaname , appid from summaries natural join owned natural join details where playtime_2weeks > 0 and supported_languages like '%Portuguese%';">
-					Mostrar o nome da pessoa que jogou um jogo nas últimas 2 semanas que possui suporte para língua portuguesa
+				<option value="SELECT `steamid`, `personaname`, `appid` FROM `summaries` NATURAL JOIN `owned` NATURAL JOIN `details` WHERE `playtime_2weeks` > 0 AND `supported_languages` LIKE '%Portuguese%';">
+					Mostrar o nome das pessoas que jogaram um jogo nas últimas 2 semanas que possui suporte para língua portuguesa
 				</option>
 				
-				<option value="select c.countryformalname ,  count(distinct d.appid) /  aux.total  from countries c natural join summaries s natural join owned o natural join details d natural join (select c1.loccountrycode , count(distinct s1.steamid) as total from countries c1 natural join summaries s1 group by c1.loccountrycode) aux where d.is_free = false group by c.countryformalname;">
+				<option value="SELECT c.`countryformalname`, COUNT(DISTINCT d.`appid`) / aux.total FROM `countries` c NATURAL JOIN `summaries` s NATURAL JOIN `owned` o NATURAL JOIN `details` d NATURAL JOIN (SELECT c1.`loccountrycode`, COUNT(DISTINCT s1.`steamid`) AS total FROM `countries` c1 NATURAL JOIN `summaries` s1 GROUP BY c1.`loccountrycode`) aux WHERE d.`is_free` = 0 GROUP BY c.`countryformalname`;">
 					Mostrar a porcentagem de jogadores que pagaram por algum jogo para cada país
 				</option>
 				
-				<option value="select c.countryformalname , avg(aux.totalpessoa) from countries c natural join (select s.loccountrycode  , sum(d.price) as totalpessoa from summaries s natural join owned o natural join  details d where d.price > 0) aux group by c.countryformalname order by c.countryformalname;">
-					Mostrar a média de dinherio gasto por pessoa por cada país
+				<option value="SELECT c.`countryformalname`, AVG(aux.totalpessoa) FROM `countries` c NATURAL JOIN (SELECT s.`loccountrycode`, SUM(d.`price`) AS totalpessoa FROM `summaries` s NATURAL JOIN `owned` o NATURAL JOIN `details` d WHERE d.`price` > 0) aux GROUP BY c.`countryformalname` ORDER BY c.`countryformalname`;">
+					Mostrar a média de dinheiro (em centavos) gasto por pessoa por cada país
 				</option>
 				
-				<option value="select personaname , appid from summaries natural join owned natural join details where playtime_forever = 0 and price > 0 ;">
-					Selecionar o nome das pessoas e o jogo em que alguem comprou e nao jogou ainda
+				<option value="SELECT `personaname`, `appid` FROM `summaries` NATURAL JOIN `owned` NATURAL JOIN `details` WHERE `playtime_forever` = 0 AND `price` > 0 ;">
+					Selecionar o nome das pessoas e seus jogos comprados que n&atilde;o foram jogados
 				</option>
 			</select>
 		</div>
