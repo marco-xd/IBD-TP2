@@ -1,5 +1,5 @@
-/*DROP DATABASE IF EXISTS steam;
-CREATE DATABASE steam DEFAULT CHARACTER SET latin1 DEFAULT COLLATE latin1_bin;*/
+DROP DATABASE IF EXISTS steam;
+CREATE DATABASE steam DEFAULT CHARACTER SET latin1 DEFAULT COLLATE latin1_bin;
 
 connect steam;
 
@@ -7,141 +7,141 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
--- DROP TABLE IF EXISTS countries ;
+DROP TABLE IF EXISTS countries ;
 
--- CREATE TABLE IF NOT EXISTS countries (
---   countryname VARCHAR(63) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
---   countrycurrency VARCHAR(63) NOT NULL,
---   loccountrycode CHAR(2) NOT NULL,
---   countrytype VARCHAR(63) NOT NULL,
---   countrysubtype VARCHAR(63) NOT NULL, /* TODO: alterar countryubtype para countrysubtype */
---   countryformalname VARCHAR(63) NOT NULL,
---   countrysovereignty VARCHAR(63) NOT NULL,
+CREATE TABLE IF NOT EXISTS countries (
+  countryname VARCHAR(63) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  countrycurrency VARCHAR(63) NOT NULL,
+  loccountrycode CHAR(2) NOT NULL,
+  countrytype VARCHAR(63) NOT NULL,
+  countrysubtype VARCHAR(63) NOT NULL, /* TODO: alterar countryubtype para countrysubtype */
+  countryformalname VARCHAR(63) NOT NULL,
+  countrysovereignty VARCHAR(63) NOT NULL,
 
---   PRIMARY KEY (loccountrycode))
+  PRIMARY KEY (loccountrycode))
 
--- ENGINE = MyISAM;
-
-
--- DROP TABLE IF EXISTS summaries ;
-
--- CREATE TABLE IF NOT EXISTS summaries (
---   steamid CHAR(17) NOT NULL,
---   avatar VARCHAR(255) NOT NULL,
---   communityvisibilitystate TINYINT(1) NOT NULL,
---   avatarmedium VARCHAR(255) NOT NULL,
---   personaname VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
---   personastate TINYINT(1) NOT NULL,
---   profilestate TINYINT(1) NOT NULL,
---   lastlogoff INT NOT NULL,
---   avatarfull VARCHAR(255) NOT NULL,
---   commentpermission TINYINT(1) NOT NULL,
---   personastateflags INT NOT NULL,
---   profileurl VARCHAR(255) NOT NULL,
---   loccountrycode CHAR(2) NOT NULL,
-
---   PRIMARY KEY (steamid),
-
---   FOREIGN KEY (loccountrycode)
---     REFERENCES countries (loccountrycode)
---     ON DELETE RESTRICT
---     ON UPDATE RESTRICT)
--- ENGINE = MyISAM;
+ENGINE = MyISAM;
 
 
--- DROP TABLE IF EXISTS details ;
+DROP TABLE IF EXISTS summaries ;
 
--- CREATE TABLE IF NOT EXISTS details (
---   appid INT NOT NULL,
---   about_the_game TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
---   background VARCHAR(255) NOT NULL,
---   coming_soon TINYINT(1) NOT NULL,
---   detailed_description TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
---   dlc_from INT NOT NULL,
---   header_image VARCHAR(255) NOT NULL, /* TODO: alterar details_col para header_image */
---   is_free TINYINT(1) NOT NULL,
---   linux_requirements TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
---   linux_support TINYINT(1) NOT NULL,
---   mac_requirements TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
---   mac_support TINYINT(1) NOT NULL,
---   pc_requirements TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
---   price INT NOT NULL,
---   release_date VARCHAR(63) NOT NULL,
---   required_age INT NOT NULL,
---   support_email VARCHAR(255) NOT NULL,
---   support_url VARCHAR(1023) NOT NULL,
---   supported_languages TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
---   type VARCHAR(16) NOT NULL,
---   website VARCHAR(255) NOT NULL,
---   windows_support TINYINT(1) NOT NULL,
+CREATE TABLE IF NOT EXISTS summaries (
+  steamid CHAR(17) NOT NULL,
+  avatar VARCHAR(255) NOT NULL,
+  communityvisibilitystate TINYINT(1) NOT NULL,
+  avatarmedium VARCHAR(255) NOT NULL,
+  personaname VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  personastate TINYINT(1) NOT NULL,
+  profilestate TINYINT(1) NOT NULL,
+  lastlogoff INT NOT NULL,
+  avatarfull VARCHAR(255) NOT NULL,
+  commentpermission TINYINT(1) NOT NULL,
+  personastateflags INT NOT NULL,
+  profileurl VARCHAR(255) NOT NULL,
+  loccountrycode CHAR(2) NOT NULL,
 
---   PRIMARY KEY (appid),
+  PRIMARY KEY (steamid),
 
---   FOREIGN KEY (dlc_from) /* TODO: adicionar foreign key */
---     REFERENCES details (appid)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE)
-
--- ENGINE = MyISAM;
+  FOREIGN KEY (loccountrycode)
+    REFERENCES countries (loccountrycode)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = MyISAM;
 
 
--- DROP TABLE IF EXISTS achievements ;
+DROP TABLE IF EXISTS details ;
 
--- CREATE TABLE IF NOT EXISTS achievements (
---   appid INT NOT NULL,
---   achi_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
---   achi_defaultvalue TINYINT(1) NOT NULL,
---   achi_displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
---   hidden TINYINT(1) NOT NULL,
---   icon VARCHAR(255) NOT NULL,
---   icongray VARCHAR(255) NOT NULL,
+CREATE TABLE IF NOT EXISTS details (
+  appid INT NOT NULL,
+  about_the_game TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  background VARCHAR(255) NOT NULL,
+  coming_soon TINYINT(1) NOT NULL,
+  detailed_description TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  dlc_from INT NOT NULL,
+  header_image VARCHAR(255) NOT NULL, /* TODO: alterar details_col para header_image */
+  is_free TINYINT(1) NOT NULL,
+  linux_requirements TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  linux_support TINYINT(1) NOT NULL,
+  mac_requirements TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  mac_support TINYINT(1) NOT NULL,
+  pc_requirements TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  price INT NOT NULL,
+  release_date VARCHAR(63) NOT NULL,
+  required_age INT NOT NULL,
+  support_email VARCHAR(255) NOT NULL,
+  support_url VARCHAR(1023) NOT NULL,
+  supported_languages TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  type VARCHAR(16) NOT NULL,
+  website VARCHAR(255) NOT NULL,
+  windows_support TINYINT(1) NOT NULL,
 
---   PRIMARY KEY (appid, achi_name),
+  PRIMARY KEY (appid),
 
---   FOREIGN KEY (appid)
---     REFERENCES details (appid)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE)
--- ENGINE = MyISAM;
+  FOREIGN KEY (dlc_from) /* TODO: adicionar foreign key */
+    REFERENCES details (appid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 
-
--- DROP TABLE IF EXISTS playerachievements ;
-
--- CREATE TABLE IF NOT EXISTS playerachievements (
---   steamid CHAR(17) NOT NULL,
---   appid INT NOT NULL,
---   achi_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
---   achieved TINYINT(1) NOT NULL,
-
---   PRIMARY KEY (steamid, appid, achi_name),
-
---   FOREIGN KEY (steamid)
---     REFERENCES summaries (steamid)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE,
-
---   FOREIGN KEY (appid, achi_name)  /* TODO: modificar esquema ER */
---     REFERENCES achievements (appid, achi_name)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE)
--- ENGINE = MyISAM;
+ENGINE = MyISAM;
 
 
--- DROP TABLE IF EXISTS stats ;
+DROP TABLE IF EXISTS achievements ;
 
--- CREATE TABLE IF NOT EXISTS stats (
---   appid INT NOT NULL,
---   stat_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
---   stat_defaultvalue DOUBLE NOT NULL, /* ALTER TABLE stats CHANGE COLUMN defaultvalue stat_defaultvalue DOUBLE NOT NULL; */
---   stat_displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, /* ALTER TABLE stats CHANGE COLUMN displayname stat_displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;  */
+CREATE TABLE IF NOT EXISTS achievements (
+  appid INT NOT NULL,
+  achi_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  achi_defaultvalue TINYINT(1) NOT NULL,
+  achi_displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  hidden TINYINT(1) NOT NULL,
+  icon VARCHAR(255) NOT NULL,
+  icongray VARCHAR(255) NOT NULL,
 
---   PRIMARY KEY (appid, stat_name),
+  PRIMARY KEY (appid, achi_name),
 
---   FOREIGN KEY (appid)
---     REFERENCES details (appid)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE)
--- ENGINE = MyISAM;
+  FOREIGN KEY (appid)
+    REFERENCES details (appid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = MyISAM;
+
+
+DROP TABLE IF EXISTS playerachievements ;
+
+CREATE TABLE IF NOT EXISTS playerachievements (
+  steamid CHAR(17) NOT NULL,
+  appid INT NOT NULL,
+  achi_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  achieved TINYINT(1) NOT NULL,
+
+  PRIMARY KEY (steamid, appid, achi_name),
+
+  FOREIGN KEY (steamid)
+    REFERENCES summaries (steamid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+
+  FOREIGN KEY (appid, achi_name)  /* TODO: modificar esquema ER */
+    REFERENCES achievements (appid, achi_name)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = MyISAM;
+
+
+DROP TABLE IF EXISTS stats ;
+
+CREATE TABLE IF NOT EXISTS stats (
+  appid INT NOT NULL,
+  stat_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  stat_defaultvalue DOUBLE NOT NULL, /* ALTER TABLE stats CHANGE COLUMN defaultvalue stat_defaultvalue DOUBLE NOT NULL; */
+  stat_displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, /* ALTER TABLE stats CHANGE COLUMN displayname stat_displayname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;  */
+
+  PRIMARY KEY (appid, stat_name),
+
+  FOREIGN KEY (appid)
+    REFERENCES details (appid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = MyISAM;
 
 
 DROP TABLE IF EXISTS playerstats ;
@@ -166,99 +166,99 @@ CREATE TABLE IF NOT EXISTS playerstats (
 ENGINE = MyISAM;
 
 
--- DROP TABLE IF EXISTS owned ;
+DROP TABLE IF EXISTS owned ;
 
--- CREATE TABLE IF NOT EXISTS owned (
---   steamid CHAR(17) NOT NULL,
---   appid INT NOT NULL,
---   playtime_forever INT NOT NULL,
---   playtime_2weeks INT NOT NULL,
+CREATE TABLE IF NOT EXISTS owned (
+  steamid CHAR(17) NOT NULL,
+  appid INT NOT NULL,
+  playtime_forever INT NOT NULL,
+  playtime_2weeks INT NOT NULL,
 
---   PRIMARY KEY (steamid, appid),
+  PRIMARY KEY (steamid, appid),
 
---   FOREIGN KEY (steamid)
---     REFERENCES summaries (steamid)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE,
+  FOREIGN KEY (steamid)
+    REFERENCES summaries (steamid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
 
---   FOREIGN KEY (appid)
---     REFERENCES details (appid)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE)
--- ENGINE = MyISAM;
-
-
--- DROP TABLE IF EXISTS friends ;
-
--- CREATE TABLE IF NOT EXISTS friends (
---   relationship VARCHAR(16) NOT NULL,
---   friend_since INT NOT NULL,
---   steamid1 CHAR(17) NOT NULL,
---   steamid2 CHAR(17) NOT NULL,
---   PRIMARY KEY (steamid1, steamid2),
-
---   FOREIGN KEY (steamid1)
---     REFERENCES summaries (steamid)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE,
-
---   FOREIGN KEY (steamid2)
---     REFERENCES summaries (steamid)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE)
--- ENGINE = MyISAM;
+  FOREIGN KEY (appid)
+    REFERENCES details (appid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = MyISAM;
 
 
--- DROP TABLE IF EXISTS news ;
+DROP TABLE IF EXISTS friends ;
 
--- CREATE TABLE IF NOT EXISTS news (
---   appid INT NOT NULL,
---   gid VARCHAR(20) NOT NULL,
---   title VARCHAR(1023) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
---   url VARCHAR(255) NOT NULL,
---   is_external_url TINYINT(1) NOT NULL,
---   author VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
---   contents LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
---   feedlabel VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
---   date INT NOT NULL,
---   feedname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+CREATE TABLE IF NOT EXISTS friends (
+  relationship VARCHAR(16) NOT NULL,
+  friend_since INT NOT NULL,
+  steamid1 CHAR(17) NOT NULL,
+  steamid2 CHAR(17) NOT NULL,
+  PRIMARY KEY (steamid1, steamid2),
 
---   PRIMARY KEY (appid, gid),
+  FOREIGN KEY (steamid1)
+    REFERENCES summaries (steamid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
 
---   FOREIGN KEY (appid)
---     REFERENCES details (appid)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE)
--- ENGINE = MyISAM;
+  FOREIGN KEY (steamid2)
+    REFERENCES summaries (steamid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = MyISAM;
 
 
--- DROP TABLE IF EXISTS developers ;
+DROP TABLE IF EXISTS news ;
 
--- CREATE TABLE IF NOT EXISTS developers (
---   appid INT NOT NULL,
---   dev_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+CREATE TABLE IF NOT EXISTS news (
+  appid INT NOT NULL,
+  gid VARCHAR(20) NOT NULL,
+  title VARCHAR(1023) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  url VARCHAR(255) NOT NULL,
+  is_external_url TINYINT(1) NOT NULL,
+  author VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  contents LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  feedlabel VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  date INT NOT NULL,
+  feedname VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 
---   PRIMARY KEY (appid, dev_name),
+  PRIMARY KEY (appid, gid),
 
---   FOREIGN KEY (appid)
---     REFERENCES details (appid)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE)
--- ENGINE = MyISAM;
+  FOREIGN KEY (appid)
+    REFERENCES details (appid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = MyISAM;
 
 
--- DROP TABLE IF EXISTS publishers ;
+DROP TABLE IF EXISTS developers ;
 
--- CREATE TABLE IF NOT EXISTS publishers (
---   pub_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
---   appid INT NOT NULL,
---   PRIMARY KEY (pub_name, appid),
+CREATE TABLE IF NOT EXISTS developers (
+  appid INT NOT NULL,
+  dev_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 
---   FOREIGN KEY (appid)
---     REFERENCES details (appid)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE)
--- ENGINE = MyISAM;
+  PRIMARY KEY (appid, dev_name),
+
+  FOREIGN KEY (appid)
+    REFERENCES details (appid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = MyISAM;
+
+
+DROP TABLE IF EXISTS publishers ;
+
+CREATE TABLE IF NOT EXISTS publishers (
+  pub_name VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  appid INT NOT NULL,
+  PRIMARY KEY (pub_name, appid),
+
+  FOREIGN KEY (appid)
+    REFERENCES details (appid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = MyISAM;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
