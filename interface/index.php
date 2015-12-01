@@ -100,8 +100,8 @@
 					Mostrar a porcentagem de jogadores que pagaram por algum jogo para cada país
 				</option>
 				
-				<option value="SELECT c.`countryformalname`, AVG(aux.totalpessoa) FROM `countries` c NATURAL JOIN (SELECT s.`loccountrycode`, SUM(d.`price`) AS totalpessoa FROM `summaries` s NATURAL JOIN `owned` o NATURAL JOIN `details` d WHERE d.`price` > 0) aux GROUP BY c.`countryformalname` ORDER BY c.`countryformalname`;">
-					Mostrar a média de dinheiro (em centavos) gasto por pessoa por cada país
+				<option value="SELECT c.`countryformalname`, AVG(aux.totalpessoa) FROM `countries` c NATURAL JOIN (SELECT s.`loccountrycode`, SUM(d.`price`) AS totalpessoa FROM `summaries` s NATURAL JOIN `owned` o NATURAL JOIN `details` d WHERE d.`price` > 0 GROUP BY s.`steamid`) aux WHERE c.`countryformalname` != '' GROUP BY c.`countryformalname` ORDER BY c.`countryformalname`;">
+					Mostrar a m&eacute;dia de dinheiro (em centavos) gasto por pessoa por cada país
 				</option>
 				
 				<option value="SELECT `personaname`, `appid` FROM `summaries` NATURAL JOIN `owned` NATURAL JOIN `details` WHERE `playtime_forever` = 0 AND `price` > 0 ;">
