@@ -56,7 +56,7 @@ def friendsGenerator(all_Ids):
     for i, uid in enumerate(all_Ids):
         print('[' + str(i) + '] friends for ' + str(uid))
         ids = set([ k for k in all_Ids if k not in friends[uid] and k != uid ])
-        for _ in range(random.randint(0, len(ids))):
+        for _ in range(random.randint(0, len(ids) / 100)):
             friend = random.sample(ids, 1)[0]
             friends[uid][friend] = { 'steamid': friend, 'friend_since': random.randint(998307200, 1246422390) }
             ids.remove(friend)
