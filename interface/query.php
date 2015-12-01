@@ -75,7 +75,7 @@ $colunas = $result->fetch_fields();
 
 //Imprimindo a tabela
 ?>
-<div>Consulta levou <?= $exectime; ?> segundos</div>
+<div class="exectime">Consulta levou <?= $exectime; ?> segundos</div>
 <div class="table-responsive" id="resQuery">
 	<table class="table table-striped table-bordered">
 		<thead>
