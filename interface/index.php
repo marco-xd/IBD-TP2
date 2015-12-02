@@ -57,11 +57,11 @@
 				<option value=""> SELECIONE SUA PESQUISA</option>
 
 				<option value="SELECT `countryformalname`, SUM(`price`) FROM `countries` NATURAL JOIN `summaries` NATURAL JOIN `owned` NATURAL JOIN `details` WHERE `is_free` = 0 GROUP BY `countryformalname` ORDER BY SUM(`price`);">
-					Mostrar o nome do país seguido de o total gasto (em centavos) por jogos não gratis
+					Mostrar o nome do pa&iacute;s seguido de o total gasto (em centavos) por jogos não gratis
 				</option>
 
 				<option value="SELECT `appid` FROM `details` WHERE `linux_support` = 1 AND `appid` NOT IN (SELECT DISTINCT `appid` FROM `news`);">
-					Mostrar os appid dos jogos que possuem suporte para linux e não possuem alguma notícia
+					Mostrar os appid dos jogos que possuem suporte para linux e n&atilde;o possuem alguma not&iacute;cia
 				</option>
 				
 				<option value="SELECT `appid` FROM `details` WHERE `linux_support` = 1 AND `mac_support` = 1 AND `windows_support` = 1 ORDER BY `appid`;">
@@ -69,7 +69,7 @@
 				</option>
 				
 				<option value="SELECT `avatarmedium`, `steamid`, `personaname`, MAX(`playtime_forever`), `appid` FROM `summaries` NATURAL JOIN `owned` GROUP BY `steamid`">
-					Mostrar o id, nome e avatar de cada jogador e o id do jogo que ela mais jogou
+					Mostrar o id, nome e avatar de cada jogador e o id do jogo que ele mais jogou
 				</option>
 				
 				<option value="SELECT `appid`, `header_image`, COUNT(`steamid`), SUM(`playtime_forever`) FROM `summaries` NATURAL JOIN `owned` NATURAL JOIN `details` GROUP BY `appid`;">
@@ -77,7 +77,7 @@
 				</option>
 				
 				<option value="SELECT c1.`countryformalname`, aux.id, aux.nome, aux.avatarfull, MAX(aux.total) FROM (SELECT s.`steamid` AS id, s.`personaname` AS NOME, s.`loccountrycode` AS loccountrycode, COUNT(pa.`achieved`) AS total, s.`avatarfull` as avatarfull FROM `summaries` s NATURAL JOIN `playerachievements` pa GROUP BY s.`steamid`) aux NATURAL JOIN `countries` c1 GROUP BY c1.`countryformalname` ORDER BY MAX(total);">
-					Mostrar o nome do país e o nome e avatar do habitante que mais possui achievements
+					Mostrar o nome do pa&iacute;s e o nome e avatar do habitante que mais possui achievements
 				</option>
 				
 				<option value="SELECT D.`appid`, D.`dev_name` FROM `developers` D JOIN `publishers` P ON D.`appid` = P.`appid` AND D.`dev_name` = P.`pub_name` ORDER BY D.`appid`;">
@@ -97,11 +97,11 @@
 				</option>
 				
 				<option value="SELECT `countryformalname`, CONCAT(ROUND((`totalbuyers` / `totalplayers`) * 100), '%') AS percentage FROM (SELECT `loccountrycode`, `countryformalname`, COUNT(DISTINCT `steamid`) AS totalbuyers FROM `summaries` NATURAL JOIN `countries` NATURAL JOIN `owned` NATURAL JOIN `details` WHERE `price` > 0 AND `is_free` = 0 AND `countryformalname` != '' GROUP BY `loccountrycode`) b NATURAL JOIN (SELECT `loccountrycode`, COUNT(DISTINCT `steamid`) AS totalplayers FROM `summaries` NATURAL JOIN `countries` GROUP BY `loccountrycode`) p GROUP BY `countryformalname`;">
-					Para cada país que tem jogadores que compram jogos, mostrar a porcentagem de que possui ao menos um jogo comprado
+					Para cada pa&iacute;s que tem jogadores que compram jogos, mostrar a porcentagem dos que possuem ao menos um jogo comprado
 				</option>
 				
 				<option value="SELECT c.`countryformalname`, CONCAT('R$ ', ROUND(AVG(aux.totalpessoa) / 100, 2)) as money FROM `countries` c NATURAL JOIN (SELECT s.`loccountrycode`, SUM(d.`price`) AS totalpessoa FROM `summaries` s NATURAL JOIN `owned` o NATURAL JOIN `details` d WHERE d.`price` > 0 GROUP BY s.`steamid`) aux WHERE c.`countryformalname` != '' GROUP BY c.`countryformalname` ORDER BY c.`countryformalname`;">
-					Mostrar a m&eacute;dia de dinheiro gasto por pessoa por cada país
+					Mostrar a m&eacute;dia de dinheiro gasto por pessoa por cada pa&iacute;s
 				</option>
 				
 				<option value="SELECT `personaname`, `appid` FROM `summaries` NATURAL JOIN `owned` NATURAL JOIN `details` WHERE `playtime_forever` = 0 AND `price` > 0;">
