@@ -72,7 +72,7 @@
 					Mostrar o id, nome e avatar de cada jogador e o id do jogo que ela mais jogou
 				</option>
 				
-				<option value="SELECT `appid`, `header_image`, COUNT(`steamid`), SUM(`playtime_forever`) FROM `summaries` NATURAL JOIN `owned` GROUP BY `appid`;">
+				<option value="SELECT `appid`, `header_image`, COUNT(`steamid`), SUM(`playtime_forever`) FROM `summaries` NATURAL JOIN `owned` NATURAL JOIN `details` GROUP BY `appid`;">
 					Mostrar o id, a imagem, o total de players e o total de tempo jogado de cada jogo
 				</option>
 				
