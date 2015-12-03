@@ -1,26 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt_br">
 	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
 		<title>TP IBD</title>
 
-		<!-- CSS -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="css/style.css" rel="stylesheet">
-
-		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
 		<!--[if lt IE 9]>
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		
+		<script type="text/javascript">
+			$(document).ready(function () {
+				var txtbox = document.getElementById('text'),
+				    ddown = document.getElementById('dropdownlist');
+
+				ddown.value = ddown.children[0].value;
+				txtbox.innerHTML = '';
+
+				$(document.getElementById('dropdownlist')).on('change', function () {
+					txtbox.innerHTML = this.value;
+				});
+			});
+		</script>
 	</head>
 	<body>
 
- <nav class="navbar navbar-inverse navbar-fixed-top">
+ 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -38,26 +51,29 @@
 						<li class="active"><a href="relacional.html">Esquema Relacional</a></li>
 						<li class="active"><a href="grupo.html">Grupo</a></li>
 					</ul>
-				</div><!--/.nav-collapse -->
+				</div>
 			</div>
 		</nav>
 
 		<div class="container">
 				<div class="starter-template">
-				<form action="query.php" method="post">
-			<h3>Digite sua query:</h3> <textarea id="text" name="stmt" rows="10" cols="70"> </textarea><br><br>
-			<input type="submit">
-			</form>
+					<form action="query.php" method="post">
+						<h3>Digite sua query:</h3>
+						<textarea id="text" name="stmt"></textarea>
+						<br />
+						<br />
+						<input type="submit" value="Enviar" />
+					</form>
 				</div>
-		</div><!-- /.container -->
+		</div>
 
 
 		<div class="form-group">
 			<select class="form-control" id="dropdownlist">
-				<option value=""> SELECIONE SUA PESQUISA</option>
+				<option value="" selected>SELECIONE SUA PESQUISA</option>
 
 				<option value="SELECT `countryformalname`, SUM(`price`) FROM `countries` NATURAL JOIN `summaries` NATURAL JOIN `owned` NATURAL JOIN `details` WHERE `is_free` = 0 GROUP BY `countryformalname` ORDER BY SUM(`price`);">
-					Mostrar o nome do pa&iacute;s seguido de o total gasto (em centavos) por jogos não gratis
+					Mostrar o nome do pa&iacute;s seguido de o total gasto (centavos) por jogos não gr&aacute;tis
 				</option>
 
 				<option value="SELECT `appid` FROM `details` WHERE `linux_support` = 1 AND `appid` NOT IN (SELECT DISTINCT `appid` FROM `news`);">
@@ -77,15 +93,15 @@
 				</option>
 				
 				<option value="SELECT c1.`countryformalname`, aux.id, aux.nome, aux.avatarfull, MAX(aux.total) FROM (SELECT s.`steamid` AS id, s.`personaname` AS NOME, s.`loccountrycode` AS loccountrycode, COUNT(pa.`achieved`) AS total, s.`avatarfull` as avatarfull FROM `summaries` s NATURAL JOIN `playerachievements` pa GROUP BY s.`steamid`) aux NATURAL JOIN `countries` c1 GROUP BY c1.`countryformalname` ORDER BY MAX(total);">
-					Mostrar o nome do pa&iacute;s e o nome e avatar do habitante que mais possui achievements
+					Mostrar nome do pa&iacute;s e nome e avatar do habitante que mais possui conquistas
 				</option>
 				
 				<option value="SELECT D.`appid`, D.`dev_name` FROM `developers` D JOIN `publishers` P ON D.`appid` = P.`appid` AND D.`dev_name` = P.`pub_name` ORDER BY D.`appid`;">
-					Selecionar os jogos que possuem desenvolvedores e publicadores iguais
+					Selecionar os jogos que possuem desenvolvedores e divulgadores iguais
 				</option>
 				
 				<option value="SELECT `steamid1`, `steamid2`, a.`appid` FROM `friends`, `owned` a, `owned` b WHERE a.`steamid` = `steamid1` AND b.`steamid` = `steamid2` AND a.`appid` = b.`appid` ORDER BY `steamid1`;">
-					Para cada pessoa selecionar todos os amigos que possuem jogos em comum e mostrar o id do jogo
+					Selecionar todos os amigos que possuem jogos em comum e mostrar o id do jogo
 				</option>
 				
 				<option value="SELECT `steamid`, `personaname`, CASE WHEN SUM(`price`) > 10000 THEN &quot;verdadeiro&quot; ELSE &quot;falso&quot; END AS verdadeiro_ou_falso FROM `summaries` NATURAL JOIN `owned` NATURAL JOIN `details` WHERE `is_free` = 0 GROUP BY `steamid`;">
@@ -109,21 +125,6 @@
 				</option>
 			</select>
 		</div>
-
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="js/bootstrap.min.js"></script>
-		
-		<script type="text/javascript">
-			var mytextbox = document.getElementById('text');
-			var mydropdown = document.getElementById('dropdownlist');
-
-			mydropdown.onchange = function(){
-					 //mytextbox.value = mytextbox.value  + this.value; //to appened
-					 mytextbox.innerHTML = this.value;
-			}
-		</script>
 
 	</body>
 </html>

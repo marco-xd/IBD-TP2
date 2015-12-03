@@ -7,8 +7,8 @@ body {
 }
 
 .starter-template {
-  padding: 40px 15px;
-  text-align: center;
+	padding: 40px 15px;
+	text-align: center;
 }
 
 #resQuery{
@@ -34,8 +34,9 @@ body {
 	margin-right: auto;
 }
 
-li {display: list-item;
-    text-align: -webkit-match-parent;
+li {
+	display: list-item;
+	text-align: -webkit-match-parent;
 }
 
 #relac{
@@ -44,4 +45,11 @@ li {display: list-item;
 	margin-left:auto;
 	margin-right:auto;
 	margin-top: 20px;
+}
+
+#text {
+	width: 500px;
+	height: 250px;
+	min-height: 250px;
+	resize: vertical;
 }
