@@ -44,57 +44,45 @@
 
 <div>
 <pre id="relac">
-countries (  <u>loccountrycode</u> ,countryname,  countrycurrency ,  countrytype, countryubtype , countryformalname , countrysovereignty )
+countries ( <u>loccountrycode</u>, countryname, countrycurrency, countrytype, countrysubtype, countryformalname, countrysovereignty )
 
-
-sumaries (  <u>steamid</u> ,  avatar,  communityvisibilitystate,  avatarmedium,  personaname,  personastate,  profilestate,  lastlogoff,  avatarfull,  commentpermission,  personastateflags,  profileurl,  loccountrycode)
-  loccountrycode REFERENCES countries (loccountrycode)
+summaries ( <u>steamid</u>, avatar, communityvisibilitystate, avatarmedium, personaname, personastate, profilestate, lastlogoff, avatarfull, commentpermission, personastateflags, profileurl, loccountrycode )
+    loccountrycode <b>REFERENCES</b> countries ( loccountrycode )
  
+details ( <u>appid</u>, about_the_game, background, coming_soon, detailed_description, dlc_from, header_image, is_free, linux_requirements, linux_support, mac_requirements, mac_support, pc_requirements, price, release_date, required_age, support_email, support_url, supported_languages, type, website, windows_support, dlc_from )
+    dlc_from <b>REFERENCES</b> details ( appid )
+ 
+achievements ( <u>appid</u>, achi_name, achi_defaultvalue, achi_displayname, hidden, icon, icongray )
+    appid <b>REFERENCES</b> details ( appid )
 
-details (  <u>appid</u>,  about_the_game,  background,  coming_soon,  detailed_description,  dlc_from,  detailscol,  is_free,  linux_requirements,  linux_support ,  mac_requirements,  mac_support,  pc_requirements,  price,  release_date,  required_age,  support_email ,  support_url,  supported_languages,  type,  website,  windows_support)
+stats ( <u>appid</u>, stats_name, stats_defaultvalue, stats_displayname )
+    appid <b>REFERENCES</b> details ( appid )
 
+playerstats ( <u>steamid</u>, <u>appid</u>, <u>stats_name</u>, value )
+    steamid           <b>REFERENCES</b> summaries ( steamid )
+    appid, stats_name <b>REFERENCES</b> stats ( appid, stats_name )
 
-achievements (  <u>appid</u> ,  <u>achi_name</u> ,  defaultvalue ,  displayname ,  hidden ,  icon ,  icongray )
-  appid     REFERENCES details (appid)
+playerachievements ( <u>steamid</u>, <u>appid</u>, <u>achi_name</u>, achieved )
+    steamid          <b>REFERENCES</b> sumaries ( steamid )
+    appid, achi_name <b>REFERENCES</b> achievements ( appid, achi_name )
 
+owned ( <u>steamid</u>, <u>appid</u>, playtime_forever, playtime_2weeks )
+    steamid <b>REFERENCES</b> sumaries ( steamid )
+    appid   <b>REFERENCES</b> details ( appid )
 
-stats (  <u>appid</u>,  <u>stats_name</u>,  stats_defaultvalue,  stats_displayname)
+friends ( <u>steamid1</u>, <u>steamid2</u>, relationship, friend_since )
+    steamid1 <b>REFERENCES</b> sumaries ( steamid )
+    steamid2 <b>REFERENCES</b> sumaries ( steamid )
 
-appid  REFERENCES details (appid)
+news ( <u>appid</u>, <u>gid</u>, title, url, is_external_url, author, contents, feedlabel, date, feedname )
+    appid <b>REFERENCES</b> details ( appid )
 
+developers ( <u>appid</u>, dev_name )
+    appid <b>REFERENCES</b> details ( appid )
 
-playerstats ( <u>steamid</u> ,  <u>appid</u> ,  <u>stats_name</u>,  value ,
-  steamid        REFERENCES summaries (steamid)
-  appid          REFERENCES details (appid)
-  stats_name     REFERENCES stats (stats_name)
+publishers ( <u>appid</u>, pub_name )
+    appid <b>REFERENCES</b> details ( appid )
 
-
-playerachievements (  <u>steamid</u> ,  <u>appid</u>, <u>achi_name</u> ,  achieved)
-  steamid   REFERENCES sumaries (steamid)
-  appid     REFERENCES details (appid)
-  achi_name REFERENCES achievements (achi_name)
-
-
-owned (  <u>steamid</u> ,  <u>appid</u> ,  playtime_forever ,  playtime_2weeks)
-  steamid   REFERENCES sumaries (steamid)
-  appid     REFERENCES details (appid)
-
-
-friends (  relationship ,  friend_since ,  <u>steamid1</u> ,  <u>steamid2</u> )
-  steamid1    REFERENCES sumaries (steamid)
-  steamid2    REFERENCES sumaries (steamid)
-
-
-news (  <u>appid</u> ,  <u>gid</u>,  title ,  url ,  is_external_url ,  author ,  contents ,  feedlabel ,  date ,  feedname)
-  appid     REFERENCES details (appid)
-
-
-developers (  <u>appid</u>,  <u>name</u>)
-  appid     REFERENCES details (appid)
-
-
-publishers (<u>pub_name</u> ,  <u>appid</u>)
-  appid     REFERENCES details (appid)
 </pre>
 </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
